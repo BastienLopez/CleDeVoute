@@ -1,59 +1,69 @@
-import { Building2, Wrench, Home, Hammer, Palette, Lightbulb } from "lucide-react";
+import { Building2, Wrench, Home, Hammer, Palette, BrickWall } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useLanguage } from "@/lib/language";
 
 const Services = () => {
-  const services = [
+  const { language } = useLanguage();
+  const isEnglish = language === "en";
+  const services = isEnglish ? [
+    { icon: Building2, title: "New construction", description: "New construction work, from individual homes to structural work.", features: ["Individual homes", "Foundations", "Crawl spaces, slabs and screeds"] },
+    { icon: Wrench, title: "Renovation & rehabilitation", description: "Renovation and rehabilitation work on existing buildings.", features: ["Renovation", "Rehabilitation", "Facades"] },
+    { icon: Home, title: "Extensions", description: "House extension work and associated masonry.", features: ["House extensions", "Walls", "Slabs and screeds"] },
+    { icon: Hammer, title: "Structural work & masonry", description: "General masonry and structural work for indoor and outdoor sites.", features: ["Foundations", "Boundary walls", "Partitions and ceilings"] },
+    { icon: Palette, title: "Stone, rendering & finishes", description: "Stonework, traditional render, tiling and mosaics.", features: ["Stonework", "Traditional rendering", "Tiling and mosaics"] },
+    { icon: BrickWall, title: "Outdoor works", description: "Outdoor masonry for terraces, low walls, boundary walls and facades.", features: ["Terraces", "Low walls", "Boundary walls"] },
+  ] : [
     {
       icon: Building2,
       title: "Construction neuve",
-      description: "De la conception à la livraison, nous réalisons votre projet de construction avec des matériaux de qualité premium et un savoir-faire reconnu.",
-      features: ["Maisons individuelles", "Bâtiments professionnels", "Fondations & gros œuvre"]
+      description: "Travaux de construction neuve, de la maison individuelle aux ouvrages de gros œuvre.",
+      features: ["Maisons individuelles", "Fondations", "Vides sanitaires, dalles et chapes"]
     },
     {
       icon: Wrench,
-      title: "Rénovation complète",
-      description: "Remise à neuf de votre bâtiment en préservant son authenticité tout en améliorant ses performances thermiques et esthétiques.",
-      features: ["Réhabilitation façades", "Mise aux normes", "Isolation & étanchéité"]
+      title: "Rénovation & réhabilitation",
+      description: "Travaux de rénovation et de réhabilitation sur le bâti existant.",
+      features: ["Rénovation", "Réhabilitation", "Façades"]
     },
     {
       icon: Home,
       title: "Extension & agrandissement",
-      description: "Gagnez en espace de vie avec une extension parfaitement intégrée à votre habitation existante, dans le respect de l'architecture.",
-      features: ["Extensions latérales", "Surélévations", "Vérandas maçonnées"]
+      description: "Travaux d'agrandissement de maison et maçonnerie associée.",
+      features: ["Agrandissement de maison", "Murs", "Dalles et chapes"]
     },
     {
       icon: Hammer,
       title: "Gros œuvre & maçonnerie",
-      description: "Tous travaux de maçonnerie générale pour particuliers et professionnels : fondations, murs porteurs, dalles, chapes...",
-      features: ["Fondations béton", "Murs & cloisons", "Dalles & chapes"]
+      description: "Maçonnerie générale et gros œuvre pour les chantiers intérieurs et extérieurs.",
+      features: ["Fondations", "Murs de clôture", "Cloisons et plafonds"]
     },
     {
       icon: Palette,
-      title: "Façades & ravalement",
-      description: "Embellissez et protégez votre bien avec nos solutions de ravalement, enduit, crépi et habillage de façades en pierre ou brique.",
-      features: ["Ravalement complet", "Enduits décoratifs", "Parement pierre"]
+      title: "Pierre, enduits & revêtements",
+      description: "Travaux en pierre, pose d'enduits traditionnels, carrelages et mosaïques.",
+      features: ["Pierres", "Enduits traditionnels", "Carrelages et mosaïques"]
     },
     {
-      icon: Lightbulb,
+      icon: BrickWall,
       title: "Aménagements extérieurs",
-      description: "Création de terrasses, murets, allées et tous aménagements extérieurs pour valoriser votre propriété.",
-      features: ["Terrasses dallées", "Murets & clôtures", "Allées & pavages"]
+      description: "Maçonnerie extérieure pour terrasses, murets, murs de clôture et façades.",
+      features: ["Terrasses", "Murets", "Murs de clôture"]
     }
   ];
 
   return (
-    <section id="services" className="py-24 bg-gradient-to-b from-background to-muted">
+    <section id="services" className="scroll-mt-24 bg-background py-24">
       <div className="container px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 bg-secondary/10 border border-secondary/20 rounded-full px-6 py-2 mb-6">
             <Hammer className="w-4 h-4 text-secondary" />
-            <span className="text-secondary font-semibold text-sm">Nos expertises</span>
+            <span className="text-secondary font-semibold text-sm">{isEnglish ? "Our services" : "Nos prestations"}</span>
           </div>
           <h2 className="text-4xl sm:text-5xl font-display font-bold text-foreground mb-6">
-            Une gamme complète de services
+            {isEnglish ? "The work offered by the company" : "Les travaux proposés par l'entreprise"}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Du gros œuvre à la finition, nous maîtrisons toutes les facettes de la maçonnerie
+            {isEnglish ? "An offer structured around the services presented by La clé de voûte." : "Une offre organisée à partir des prestations présentées par La clé de voûte."}
           </p>
         </div>
 

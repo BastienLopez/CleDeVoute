@@ -1,11 +1,19 @@
-import { Shield, Users, Award, Clock } from "lucide-react";
+import { Building2, Users, Hammer, MapPin } from "lucide-react";
+import { useLanguage } from "@/lib/language";
 
 const WhyChooseUs = () => {
-  const advantages = [
+  const { language } = useLanguage();
+  const isEnglish = language === "en";
+  const advantages = isEnglish ? [
+    { icon: MapPin, title: "Based in Sedan", description: "A general masonry company based in Sedan." },
+    { icon: Users, title: "Private & professional clients", description: "The company works with both types of clients." },
+    { icon: Hammer, title: "Indoor & outdoor sites", description: "Masonry work for indoor and outdoor projects." },
+    { icon: Building2, title: "Trusting relationships", description: "Building a trusting relationship with clients is central to the company." },
+  ] : [
     {
-      icon: Award,
-      title: "Expérience locale",
-      description: "Implantés à Sedan et connaissant parfaitement les Ardennes"
+      icon: MapPin,
+      title: "Basée à Sedan",
+      description: "Une entreprise de maçonnerie générale implantée à Sedan."
     },
     {
       icon: Users,
@@ -13,14 +21,14 @@ const WhyChooseUs = () => {
       description: "Nous adaptons nos services à tous types de clients"
     },
     {
-      icon: Shield,
-      title: "Travail soigné",
-      description: "Chantiers intérieurs & extérieurs réalisés avec professionnalisme"
+      icon: Hammer,
+      title: "Chantiers intérieurs & extérieurs",
+      description: "Des interventions sur des travaux de maçonnerie intérieurs et extérieurs."
     },
     {
-      icon: Clock,
+      icon: Building2,
       title: "Relation de confiance",
-      description: "Nous privilégions la transparence et le respect des engagements"
+      description: "Une relation de confiance avec les clients est au cœur de la démarche de l'entreprise."
     }
   ];
 
@@ -29,7 +37,7 @@ const WhyChooseUs = () => {
       <div className="container px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            Pourquoi nous choisir ?
+            {isEnglish ? "Why choose us?" : "Pourquoi nous choisir ?"}
           </h2>
           <div className="w-24 h-1 bg-secondary mx-auto" />
         </div>

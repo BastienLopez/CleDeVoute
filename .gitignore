@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+AGENTS.md
+PROJECT_MEMORY.md
+.ai
+.codex

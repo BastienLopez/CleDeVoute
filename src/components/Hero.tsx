@@ -1,40 +1,32 @@
 import { Button } from "@/components/ui/button";
-import { Phone, ArrowRight, Award } from "lucide-react";
+import { Phone, ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-premium.jpg";
+import { company } from "@/data/company";
+import { useLanguage } from "@/lib/language";
 
 const Hero = () => {
+  const { language } = useLanguage();
+  const isEnglish = language === "en";
   const scrollToContact = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Parallax Effect */}
+    <section id="top" className="relative min-h-screen flex items-center justify-center overflow-hidden scroll-mt-24">
+      {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 transition-transform duration-1000"
-        style={{ 
-          backgroundImage: `url(${heroImage})`,
-          backgroundAttachment: 'fixed'
-        }}
+        style={{ backgroundImage: `url(${heroImage})` }}
       >
         <div className="absolute inset-0 bg-gradient-to-br from-primary-dark/90 via-primary/80 to-primary-dark/85" />
-      </div>
-
-      {/* Floating Badges */}
-      <div className="absolute top-8 right-8 z-10 hidden lg:flex flex-col gap-4 animate-float">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-4 shadow-xl">
-          <Award className="w-6 h-6 text-gold mb-2" />
-          <p className="text-white text-sm font-medium">Garantie décennale</p>
-        </div>
       </div>
 
       {/* Content */}
       <div className="container relative z-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto text-center space-y-10 animate-slide-up">
-          {/* Badge Premium */}
           <div className="inline-flex items-center gap-2 backdrop-blur-md bg-white/10 border border-white/20 rounded-full px-6 py-3 text-white/90 text-sm font-medium">
             <div className="w-2 h-2 bg-gold rounded-full animate-pulse" />
-            Votre artisan de confiance depuis plus de 20 ans
+            {isEnglish ? "General masonry and structural work in Sedan" : "Maçonnerie générale et gros œuvre à Sedan"}
           </div>
 
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-white leading-tight">
@@ -43,10 +35,10 @@ const Hero = () => {
           
           <div className="space-y-4">
             <p className="text-2xl sm:text-3xl md:text-4xl text-white/95 font-semibold">
-              Excellence en maçonnerie & gros œuvre
+              {isEnglish ? "General masonry & structural work" : "Maçonnerie générale & gros œuvre"}
             </p>
             <p className="text-xl sm:text-2xl text-white/80 max-w-3xl mx-auto">
-              Sedan • Ardennes • Construction • Rénovation • Extension
+              {isEnglish ? "New builds • Renovation • Rehabilitation • Extensions" : "Construction neuve • Rénovation • Réhabilitation • Agrandissement"}
             </p>
           </div>
           
@@ -56,7 +48,7 @@ const Hero = () => {
               className="group text-lg px-10 py-7 bg-gradient-to-r from-secondary to-accent hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold"
               onClick={scrollToContact}
             >
-              Devis gratuit sous 24h
+              {isEnglish ? "Tell us about your project" : "Parlez-nous de votre projet"}
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button 
@@ -65,28 +57,13 @@ const Hero = () => {
               className="text-lg px-10 py-7 backdrop-blur-md bg-white/10 border-2 border-white/30 text-white hover:bg-white/20 hover:scale-105 transition-all duration-300 font-semibold"
               asChild
             >
-              <a href="tel:0669158671" className="flex items-center">
+              <a href={company.phoneHref} className="flex items-center">
                 <Phone className="mr-3 h-5 w-5" />
-                06 69 15 86 71
+                {company.phoneDisplay}
               </a>
             </Button>
           </div>
 
-          {/* Trust Indicators */}
-          <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto pt-12">
-            <div className="text-center space-y-2">
-              <p className="text-4xl font-display font-bold text-gold">20+</p>
-              <p className="text-white/80 text-sm">Années d'expérience</p>
-            </div>
-            <div className="text-center space-y-2">
-              <p className="text-4xl font-display font-bold text-gold">500+</p>
-              <p className="text-white/80 text-sm">Projets réalisés</p>
-            </div>
-            <div className="text-center space-y-2">
-              <p className="text-4xl font-display font-bold text-gold">100%</p>
-              <p className="text-white/80 text-sm">Clients satisfaits</p>
-            </div>
-          </div>
         </div>
       </div>
 
