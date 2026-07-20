@@ -24,15 +24,11 @@ const Hero = () => {
       {/* Content */}
       <div className="container relative z-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto text-center space-y-10 animate-slide-up">
-          <div className="inline-flex items-center gap-2 backdrop-blur-md bg-white/10 border border-white/20 rounded-full px-6 py-3 text-white/90 text-sm font-medium">
-            <div className="w-2 h-2 bg-gold rounded-full animate-pulse" />
-            {isEnglish ? "General masonry and structural work in Sedan" : "Maçonnerie générale et gros œuvre à Sedan"}
-          </div>
 
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-white leading-tight">
             La clé de voûte
           </h1>
-          
+          <br></br><br></br><br></br>
           <div className="space-y-4">
             <p className="text-2xl sm:text-3xl md:text-4xl text-white/95 font-semibold">
               {isEnglish ? "General masonry & structural work" : "Maçonnerie générale & gros œuvre"}
@@ -41,7 +37,7 @@ const Hero = () => {
               {isEnglish ? "New builds • Renovation • Rehabilitation • Extensions" : "Construction neuve • Rénovation • Réhabilitation • Agrandissement"}
             </p>
           </div>
-          
+          <br></br><br></br>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
             <Button 
               size="lg" 
