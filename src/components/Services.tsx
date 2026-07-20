@@ -52,18 +52,18 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="scroll-mt-24 bg-background py-24">
-      <div className="container px-4 sm:px-6 lg:px-8">
+    <section id="services" className="section-transition section-transition-from-white-to-stone scroll-mt-24 bg-stone py-24">
+      <div className="container relative z-10 px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 bg-secondary/10 border border-secondary/20 rounded-full px-6 py-2 mb-6">
             <Hammer className="w-4 h-4 text-secondary" />
             <span className="text-secondary font-semibold text-sm">{isEnglish ? "Our services" : "Nos prestations"}</span>
           </div>
           <h2 className="text-4xl sm:text-5xl font-display font-bold text-foreground mb-6">
-            {isEnglish ? "The work offered by the company" : "Les travaux proposés par l'entreprise"}
+            {isEnglish ? "Our masonry expertise" : "Nos savoir-faire en maçonnerie"}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            {isEnglish ? "An offer structured around the services presented by La clé de voûte." : "Une offre organisée à partir des prestations présentées par La clé de voûte."}
+            {isEnglish ? "From new builds to renovation work, La clé de voûte takes on a wide range of indoor and outdoor projects." : "De la construction neuve aux travaux de rénovation, La clé de voûte intervient sur une large variété de projets intérieurs et extérieurs."}
           </p>
         </div>
 

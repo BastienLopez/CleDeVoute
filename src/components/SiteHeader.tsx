@@ -22,7 +22,7 @@ const SiteHeader = () => {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-primary-dark/95 text-white shadow-lg backdrop-blur">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-primary-dark/50 text-white shadow-lg backdrop-blur">
       <div className="container relative flex h-20 items-center justify-between gap-5 px-4 sm:px-6 lg:px-8">
         <a href="#top" className="shrink-0 font-display text-xl font-bold tracking-tight text-gold sm:text-2xl" onClick={() => setMenuOpen(false)}>
           La clé de voûte
@@ -51,7 +51,7 @@ const SiteHeader = () => {
             )}
           </div>
           <a href="#contact" className="rounded-xl bg-secondary px-5 py-3 text-sm font-semibold text-white transition-transform hover:scale-105">
-            {isEnglish ? "Contact me" : "Me contacter"}
+            {isEnglish ? "Contact us" : "Nous contacter"}
           </a>
         </div>
 

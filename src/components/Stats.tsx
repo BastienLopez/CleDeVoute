@@ -1,37 +1,47 @@
-import { TrendingUp, Users, Award, Clock } from "lucide-react";
+import { Award, Map, TrendingUp, Users } from "lucide-react";
 import { useLanguage } from "@/lib/language";
 
 const Stats = () => {
   const { language } = useLanguage();
   const isEnglish = language === "en";
-  const stats = isEnglish ? [
-    { icon: TrendingUp, value: "20+", label: "Years of experience", description: "in the masonry sector" },
-    { icon: Users, value: "500+", label: "Projects completed", description: "for private and professional clients" },
-    { icon: Award, value: "100%", label: "Customer satisfaction", description: "testimonials and recommendations" },
-    { icon: Clock, value: "24h", label: "Guaranteed response", description: "personalised quote within 24 hours" },
-  ] : [
-    { icon: TrendingUp, value: "20+", label: "Années d'expertise", description: "dans le secteur de la maçonnerie" },
-    { icon: Users, value: "500+", label: "Projets réalisés", description: "pour particuliers et professionnels" },
-    { icon: Award, value: "100%", label: "Satisfaction client", description: "témoignages et recommandations" },
-    { icon: Clock, value: "24h", label: "Réponse garantie", description: "devis personnalisé sous 24h" },
-  ];
+  const highlights = isEnglish
+    ? [
+        { icon: TrendingUp, value: "20+", label: "Years of experience", description: "A lasting practice of the masonry trade." },
+        { icon: Users, value: "500+", label: "Projects completed", description: "For private and professional clients." },
+        { icon: Award, value: "Master craftsman certificate", label: "Qualified mason", description: "A recognised qualification in masonry." },
+        { icon: Map, value: "A journey across France", label: "Enriched expertise", description: "Different masonry techniques learned along the way." },
+      ]
+    : [
+        { icon: TrendingUp, value: "20+", label: "Années d'expertise", description: "Une pratique durable du métier de maçon." },
+        { icon: Users, value: "500+", label: "Projets réalisés", description: "Pour les particuliers et les professionnels." },
+        { icon: Award, value: "Brevet de maîtrise", label: "Artisan maçon qualifié", description: "Une qualification reconnue en maçonnerie." },
+        { icon: Map, value: "Tour de France", label: "Un savoir-faire enrichi", description: "Différentes techniques de maçonnerie acquises au fil du parcours." },
+      ];
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-primary-dark via-primary to-primary-dark py-24 text-primary-foreground">
-      <div className="absolute inset-0 opacity-10"><div className="absolute -left-32 top-0 h-96 w-96 rounded-full bg-gold blur-3xl" /><div className="absolute -bottom-48 right-0 h-[30rem] w-[30rem] rounded-full bg-secondary blur-3xl" /></div>
+    <section className="bg-stone py-24">
       <div className="container relative z-10 px-4 sm:px-6 lg:px-8">
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 font-display text-4xl font-bold sm:text-5xl">{isEnglish ? "Figures that speak for themselves" : "Des chiffres qui parlent"}</h2>
-          <p className="mx-auto max-w-2xl text-xl text-white/80">{isEnglish ? "Our experience and commitment to your projects" : "Notre expérience et notre engagement au service de vos projets"}</p>
+        <div className="mb-14 text-center">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-secondary">
+            {isEnglish ? "La clé de voûte" : "La clé de voûte"}
+          </p>
+          <h2 className="font-display text-4xl font-bold text-foreground sm:text-5xl">
+            {isEnglish ? "Experience & expertise" : "Expérience & savoir-faire"}
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+            {isEnglish ? "A profession shaped by practice, qualifications and a broad range of techniques." : "Un métier façonné par la pratique, les qualifications et une large maîtrise des techniques."}
+          </p>
         </div>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat) => (
-            <div key={stat.label} className="rounded-2xl border border-white/20 bg-white/10 p-8 text-center shadow-lg backdrop-blur-sm transition-transform duration-300 hover:-translate-y-2 hover:bg-white/15">
-              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gold text-primary"><stat.icon className="h-8 w-8" /></div>
-              <p className="mb-2 font-display text-5xl font-bold">{stat.value}</p>
-              <p className="mb-1 text-lg font-semibold">{stat.label}</p>
-              <p className="text-sm text-white/70">{stat.description}</p>
-            </div>
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {highlights.map((highlight) => (
+            <article key={highlight.label} className="rounded-2xl border border-stone-dark/60 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/10 text-secondary">
+                <highlight.icon className="h-7 w-7" />
+              </div>
+              <p className="min-h-14 font-display text-3xl font-bold leading-tight text-foreground">{highlight.value}</p>
+              <h3 className="mt-3 text-lg font-bold text-foreground">{highlight.label}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{highlight.description}</p>
+            </article>
           ))}
         </div>
       </div>

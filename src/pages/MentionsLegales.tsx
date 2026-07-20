@@ -27,7 +27,7 @@ const MentionsLegales = () => {
               <p><strong>{isEnglish ? "Publication manager" : "Responsable de publication"} :</strong> {company.founder}</p>
               <p><strong>{isEnglish ? "Address" : "Adresse"} :</strong> {company.address.line1}, {company.address.postalCode} {company.address.city}</p>
               <p><strong>{isEnglish ? "Phone" : "Téléphone"} :</strong> <a className="underline" href={company.phoneHref}>{company.phoneDisplay}</a></p>
-              <p><strong>Email :</strong> <a className="underline" href={company.gmailComposeUrl} target="_blank" rel="noopener noreferrer">{company.email}</a></p>
+              <p><strong>Email :</strong> <a className="underline" href={`mailto:${company.email}`}>{company.email}</a></p>
             </div>
           </section>
 

@@ -26,7 +26,7 @@ All colors MUST be HSL.
     --secondary: 28 80% 52%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 25% 97%;
+    --muted: 35 24% 95%;
     --muted-foreground: 215 15% 45%;
 
     --accent: 28 80% 52%;
@@ -42,8 +42,8 @@ All colors MUST be HSL.
     --radius: 0.75rem;
     
     /* Warm material tokens */
-    --stone: 35 15% 94%;
-    --stone-dark: 35 12% 80%;
+    --stone: 35 22% 89%;
+    --stone-dark: 35 16% 74%;
     --gold: 45 90% 55%;
     --gold-light: 45 95% 70%;
     
@@ -136,22 +136,61 @@ All colors MUST be HSL.
 }
 
 @layer utilities {
-  .carousel-track {
-    animation: carousel-left 60s linear infinite;
+  .section-transition {
+    position: relative;
+    z-index: 1;
   }
 
-  .carousel-viewport:hover .carousel-track,
-  .carousel-viewport:focus-within .carousel-track {
-    animation-play-state: paused;
+  .section-transition::before {
+    position: absolute;
+    z-index: 2;
+    top: -56px;
+    right: 0;
+    left: 0;
+    height: 56px;
+    pointer-events: none;
+    content: "";
   }
 
-  @keyframes carousel-left {
+  .section-transition-from-stone-to-white::before {
+    background: linear-gradient(to bottom, hsl(var(--stone)), hsl(var(--background)));
+  }
+
+  .section-transition-from-white-to-stone::before {
+    background: linear-gradient(to bottom, hsl(var(--background)), hsl(var(--stone)));
+  }
+
+  .section-transition-from-stone-to-muted::before {
+    background: linear-gradient(to bottom, hsl(var(--stone)), hsl(var(--muted)));
+  }
+
+  .realizations-viewport {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .realizations-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .desktop-carousel-track {
+      animation: carousel-desktop 30s linear infinite;
+    }
+
+    .realizations-carousel:hover .desktop-carousel-track,
+    .realizations-carousel:focus-within .desktop-carousel-track {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes carousel-desktop {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .carousel-track,
+    .desktop-carousel-track,
     .animate-bounce,
     .animate-pulse {
       animation: none;
@@ -161,7 +200,7 @@ All colors MUST be HSL.
   .animate-fade-in {
     animation: fadeIn 1.2s ease-out;
   }
-  
+
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -172,7 +211,7 @@ All colors MUST be HSL.
       transform: translateY(0);
     }
   }
-  
+
   /* Smooth scroll behavior */
   html {
     scroll-behavior: smooth;
