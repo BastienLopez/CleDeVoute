@@ -18,6 +18,12 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     document.title = language === "fr"
       ? "La clé de voûte | Maçonnerie générale et gros œuvre à Sedan"
       : "La clé de voûte | General masonry and structural work in Sedan";
+    document.querySelector('meta[name="description"]')?.setAttribute(
+      "content",
+      language === "fr"
+        ? "La clé de voûte, entreprise de maçonnerie générale et gros œuvre à Sedan : construction neuve, rénovation, pierre, terrasses et travaux intérieurs ou extérieurs."
+        : "La clé de voûte, general masonry and structural work company in Sedan: new builds, renovation, stonework, terraces and indoor or outdoor projects.",
+    );
   }, [language]);
 
   return <LanguageContext.Provider value={{ language, setLanguage }}>{children}</LanguageContext.Provider>;

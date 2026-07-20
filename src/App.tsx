@@ -7,25 +7,35 @@ import Index from "./pages/Index";
 import MentionsLegales from "./pages/MentionsLegales";
 import NotFound from "./pages/NotFound";
 import { LanguageProvider } from "@/lib/language";
+import SiteLoader from "@/components/SiteLoader";
+import { useState } from "react";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <LanguageProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter basename={import.meta.env.BASE_URL}>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/mentions-legales" element={<MentionsLegales />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </LanguageProvider>
-);
+const App = () => {
+  const [isReady, setIsReady] = useState(false);
+
+  return (
+    <LanguageProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          {isReady ? (
+            <BrowserRouter basename={import.meta.env.BASE_URL}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/mentions-legales" element={<MentionsLegales />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          ) : (
+            <SiteLoader onReady={() => setIsReady(true)} />
+          )}
+        </TooltipProvider>
+      </QueryClientProvider>
+    </LanguageProvider>
+  );
+};
 
 export default App;

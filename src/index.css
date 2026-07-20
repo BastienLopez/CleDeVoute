@@ -144,10 +144,10 @@ All colors MUST be HSL.
   .section-transition::before {
     position: absolute;
     z-index: 2;
-    top: -56px;
+    top: -32px;
     right: 0;
     left: 0;
-    height: 56px;
+    height: 32px;
     pointer-events: none;
     content: "";
   }
