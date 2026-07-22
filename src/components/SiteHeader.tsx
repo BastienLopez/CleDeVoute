@@ -27,6 +27,9 @@ const SiteHeader = () => {
         <a href="#top" className="shrink-0 font-display text-xl font-bold tracking-tight text-gold sm:text-2xl" onClick={() => setMenuOpen(false)}>
           La clé de voûte
         </a>
+        {/* <a href="#top" className="shrink-0" onClick={() => setMenuOpen(false)} aria-label="La clé de voûte">
+          <img src="/logo.png" alt="La clé de voûte" className="h-10 w-auto sm:h-12" />
+        </a> */}
 
         <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 xl:flex" aria-label={isEnglish ? "Main navigation" : "Navigation principale"}>
           {navigation.map((item) => (
