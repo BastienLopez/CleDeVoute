@@ -8,7 +8,8 @@ const Hero = () => {
   const { language } = useLanguage();
   const isEnglish = language === "en";
   const scrollToContact = () => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    document.getElementById("contact")?.scrollIntoView({ behavior });
   };
 
   return (

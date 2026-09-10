@@ -192,8 +192,24 @@ All colors MUST be HSL.
   @media (prefers-reduced-motion: reduce) {
     .desktop-carousel-track,
     .animate-bounce,
-    .animate-pulse {
-      animation: none;
+    .animate-pulse,
+    .animate-fade-in,
+    .animate-slide-up,
+    .animate-scale-in {
+      animation: none !important;
+    }
+
+    html,
+    .scroll-smooth {
+      scroll-behavior: auto !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
     }
   }
 

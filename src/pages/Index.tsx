@@ -11,14 +11,19 @@ import Footer from "@/components/Footer";
 const Index = () => {
   return (
     <div className="min-h-screen">
+      <a href="#main-content" className="sr-only z-[100] bg-white px-4 py-2 text-primary focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:rounded-md focus:outline-none focus:ring-4 focus:ring-secondary/30">
+        Aller au contenu
+      </a>
       <SiteHeader />
-      <Hero />
-      <Stats />
-      <About />
-      <Services />
-      <Realizations />
-      <InterventionZone />
-      <ContactForm />
+      <main id="main-content">
+        <Hero />
+        <Stats />
+        <About />
+        <Services />
+        <Realizations />
+        <InterventionZone />
+        <ContactForm />
+      </main>
       <Footer />
     </div>
   );
