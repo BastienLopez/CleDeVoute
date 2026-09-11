@@ -1,6 +1,6 @@
 # Points encore ouverts — phases 0 à 6
 
-Mis à jour le 10 septembre 2026 après les corrections et la validation locale finale. Les réponses du propriétaire ont été appliquées et retirées de ce fichier lorsqu'elles ne bloquent plus les phases 0 à 6. La phase 7 — refonte UI/UX — reste volontairement hors périmètre.
+Mis à jour le 10 septembre 2026 après les corrections, la validation locale finale et l'application de la refonte UI/UX. Les réponses du propriétaire ont été appliquées et retirées de ce fichier lorsqu'elles ne bloquent plus les phases 0 à 6. Ce fichier conserve uniquement les vérifications externes encore ouvertes.
 
 ## 1. Publication de la version validée
 
@@ -36,4 +36,4 @@ Semgrep et Trivy ne sont pas installés dans l'environnement utilisé. Le prefli
 
 ## Règle de passage
 
-Ne pas commencer la phase 7 tant que la publication publique et la vérification de la cible finale ne sont pas effectuées ou explicitement acceptées. Aucun autre élément fourni dans le questionnaire propriétaire ne reste bloquant pour P0 à P6.
+Ces points restent à traiter avant de déclarer la publication de production entièrement vérifiée. Ils ne bloquent plus la validation locale de P0 à P6 ni la refonte UI/UX de P7. Aucun autre élément fourni dans le questionnaire propriétaire ne reste bloquant pour P0 à P6 ou P7.

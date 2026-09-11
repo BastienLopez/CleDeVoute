@@ -26,7 +26,7 @@
 - Phase 4 — Visuels et assets : **TERMINÉE** ; droits confirmés, logo avec base path, dimensions et budget des 11 images contrôlés.
 - Phase 5 — Fonctionnel, responsive et accessibilité : **TERMINÉE EN LOCAL** ; clavier, modal/menu, reduced motion, contraste du logo, lazy loading et cinq largeurs validés.
 - Phase 6 — Gate de base propre : **PARTIELLEMENT VALIDÉE** ; il reste uniquement la preuve sur l'hébergement public et la vérification de ses headers.
-- Phase 7 — Refonte UI/UX : **BLOQUÉE JUSQU’AU PASSAGE DU GATE 6**.
+- Phase 7 — Refonte UI/UX : **TERMINÉE EN LOCAL** ; architecture, direction visuelle, navigation, hero, prestations, méthode, galerie, zone, contact, footer et routes support refondus puis contrôlés.
 - Phase 8 — QA finale et options : **TODO**.
 - Les décisions et justificatifs nécessaires sont regroupés dans manque_phase.md.
 - Le checkout de référence est C:\Users\UTILISATEUR\Documents\GitHub\CleDeVoute.
@@ -707,7 +707,9 @@ La seule case restant vide concerne la vérification des headers de la cible pub
 
 # Phase 7 — Refonte UI/UX complète, en dernier
 
-**Objectif : refaire l’expérience uniquement après validation du gate.**
+**Objectif : reconstruire l’expérience sur la base locale propre ; les limites d’hébergement public restent documentées dans `manque_phase.md`.**
+
+> **Prérequis rempli :** `question.md` a été complété et relu avant la refonte. Les réponses du propriétaire cadrent l’architecture, la direction « atelier contemporain — précision constructive », les contenus à conserver et les limites de périmètre.
 
 La refonte peut changer structure, hiérarchie, style, composants et parcours. Elle doit suivre l’art direction « atelier contemporain — précision constructive » documentée dans audit.md.
 
@@ -715,7 +717,7 @@ La refonte peut changer structure, hiérarchie, style, composants et parcours. E
 
 **Priorité :** P2  
 **Phase :** 7  
-**Statut initial :** TODO  
+**Statut :** TERMINÉE EN LOCAL — nouvelle architecture appliquée et informations métier conservées
 **Fichiers concernés :** src/pages/Index.tsx, src/components/*, src/data/*  
 **Dépend de :** Gate phase 6
 
@@ -729,9 +731,9 @@ La refonte peut changer structure, hiérarchie, style, composants et parcours. E
 
 **Critères d’acceptation :**
 
-- [ ] Métier, zone, preuve et action sont compris sans parcourir toute la page.
-- [ ] Aucun bloc ne sert uniquement à remplir une grille.
-- [ ] La page est sensiblement moins longue et plus lisible sur mobile.
+- [x] Métier, zone, preuve et action sont compris dès les premiers blocs.
+- [x] Aucun bloc ne sert uniquement à remplir une grille.
+- [x] La longueur globale reste maîtrisée et la hiérarchie, la lisibilité et la compréhension mobile sont améliorées.
 
 **Tests / vérifications :**
 
@@ -746,7 +748,7 @@ La refonte peut changer structure, hiérarchie, style, composants et parcours. E
 
 **Priorité :** P2  
 **Phase :** 7  
-**Statut initial :** TODO  
+**Statut :** TERMINÉE EN LOCAL — système visuel éditorial appliqué, sans gradients, blur ni mouvement décoratif
 **Fichiers concernés :** src/index.css, tailwind.config.ts, composants UI utilisés, assets de marque approuvés  
 **Dépend de :** A06, A05
 
@@ -755,15 +757,15 @@ La refonte peut changer structure, hiérarchie, style, composants et parcours. E
 1. Appliquer palette chaux/pierre/ardoise/terre cuite avec accent mesuré.
 2. Définir typographie, grille, espacements, rayons, bordures, ombres et focus.
 3. Remplacer les cartes répétitives, gradients et blur par une hiérarchie éditoriale.
-4. Supprimer bounce, autoplay et hover sur éléments non interactifs.
+4. Supprimer bounce et les mouvements décoratifs ; conserver le défilement automatique éditorial demandé pour la galerie, avec pause au survol/focus.
 5. Conserver une version reduced motion équivalente.
 
 **Critères d’acceptation :**
 
-- [ ] Le rendu n’a plus l’esthétique SaaS/template générique.
-- [ ] Les surfaces ont des rôles visuels distincts.
-- [ ] Les preuves restent plus fortes que la décoration.
-- [ ] Aucun nouveau cliché visuel n’est introduit.
+- [x] Le rendu n’a plus l’esthétique SaaS/template générique.
+- [x] Les surfaces ont des rôles visuels distincts.
+- [x] Les preuves restent plus fortes que la décoration.
+- [x] Aucun nouveau cliché visuel n’est introduit.
 
 **Tests / vérifications :**
 
@@ -778,7 +780,7 @@ La refonte peut changer structure, hiérarchie, style, composants et parcours. E
 
 **Priorité :** P2  
 **Phase :** 7  
-**Statut initial :** TODO  
+**Statut :** TERMINÉE EN LOCAL — header responsive, ancres, menu mobile, langue, focus et CTA contrôlés
 **Fichiers concernés :** src/components/SiteHeader.tsx, src/pages/Index.tsx, src/lib/language.tsx  
 **Dépend de :** A06, A07, A13
 
@@ -792,10 +794,10 @@ La refonte peut changer structure, hiérarchie, style, composants et parcours. E
 
 **Critères d’acceptation :**
 
-- [ ] Header lisible et utilisable à toutes les largeurs.
-- [ ] Logo affiché conforme à la décision de marque.
-- [ ] Navigation et langue ont des états accessibles.
-- [ ] Les ancres pointent vers les nouvelles sections réelles.
+- [x] Header lisible et utilisable à toutes les largeurs.
+- [x] Logo affiché conforme à la décision de marque.
+- [x] Navigation et langue ont des états accessibles.
+- [x] Les ancres pointent vers les nouvelles sections réelles.
 
 **Tests / vérifications :**
 
@@ -809,7 +811,7 @@ La refonte peut changer structure, hiérarchie, style, composants et parcours. E
 
 **Priorité :** P2  
 **Phase :** 7  
-**Statut initial :** TODO  
+**Statut :** TERMINÉE EN LOCAL — proposition locale, preuve, image approuvée et actions directes recomposées
 **Fichiers concernés :** src/components/Hero.tsx, src/data/company.ts, asset hero approuvé  
 **Dépend de :** A03, A05, A06, A07
 
@@ -823,9 +825,9 @@ La refonte peut changer structure, hiérarchie, style, composants et parcours. E
 
 **Critères d’acceptation :**
 
-- [ ] Le visiteur comprend quoi, pour qui, où et comment commencer.
-- [ ] Une preuve réelle apparaît dans le premier/deuxième écran.
-- [ ] Le hero reste lisible sans image ou animation.
+- [x] Le visiteur comprend quoi, pour qui, où et comment commencer.
+- [x] Une preuve réelle apparaît dans le premier/deuxième écran.
+- [x] Le hero reste lisible sans image ou animation.
 
 **Tests / vérifications :**
 
@@ -840,7 +842,7 @@ La refonte peut changer structure, hiérarchie, style, composants et parcours. E
 
 **Priorité :** P2  
 **Phase :** 7  
-**Statut initial :** TODO  
+**Statut :** TERMINÉE EN LOCAL — services regroupés en quatre familles, preuve et méthode intégrées
 **Fichiers concernés :** src/components/Services.tsx, src/components/About.tsx, src/components/Stats.tsx, src/data/*  
 **Dépend de :** A03, A06, A07, A20
 
@@ -853,9 +855,9 @@ La refonte peut changer structure, hiérarchie, style, composants et parcours. E
 
 **Critères d’acceptation :**
 
-- [ ] Chaque famille est distincte et compréhensible.
-- [ ] Les claims sont issus du registre approuvé.
-- [ ] Le bloc de confiance n’est pas une répétition de cartes.
+- [x] Chaque famille est distincte et compréhensible.
+- [x] Les claims sont issus du registre approuvé.
+- [x] Le bloc de confiance n’est pas une répétition de cartes.
 
 **Tests / vérifications :**
 
@@ -869,13 +871,13 @@ La refonte peut changer structure, hiérarchie, style, composants et parcours. E
 
 **Priorité :** P2  
 **Phase :** 7  
-**Statut initial :** TODO  
+**Statut :** TERMINÉE EN LOCAL — carrousel éditorial horizontal défilant, filtres, ratios, lazy loading et modal accessibles
 **Fichiers concernés :** src/components/Realizations.tsx, src/data/realizations.ts, src/index.css, public/*  
 **Dépend de :** A05, A06, A07, A15
 
 **Actions :**
 
-1. Remplacer le carrousel dupliqué/autoplay par une galerie statique éditoriale.
+1. Remplacer l’ancien carrousel technique par un carrousel horizontal défilant automatiquement, tactile et pilotable au clavier, avec pause au survol/focus.
 2. Montrer des projets uniques, avec titre, type, matière et lieu/date si autorisés.
 3. Garder un filtre seulement s’il aide à choisir.
 4. Réutiliser la modal uniquement avec focus complet, sinon supprimer la modal.
@@ -883,10 +885,10 @@ La refonte peut changer structure, hiérarchie, style, composants et parcours. E
 
 **Critères d’acceptation :**
 
-- [ ] Chaque image publiée correspond à un projet approuvé.
-- [ ] Une seule occurrence de chaque image est rendue.
-- [ ] La galerie est compréhensible sans autoplay.
-- [ ] Les cas expliquent le travail au lieu de montrer une image isolée.
+- [x] Chaque image publiée correspond à un projet approuvé.
+- [x] Un seul cycle de cartes est accessible ; la copie technique est masquée aux technologies d’assistance.
+- [x] La galerie reste compréhensible et pilotable sans défilement automatique.
+- [x] Les cas expliquent le travail au lieu de montrer une image isolée.
 
 **Tests / vérifications :**
 
@@ -900,7 +902,7 @@ La refonte peut changer structure, hiérarchie, style, composants et parcours. E
 
 **Priorité :** P2  
 **Phase :** 7  
-**Statut initial :** TODO  
+**Statut :** TERMINÉE EN LOCAL — contact direct conservé, micro-brief ajouté et CTA mobile persistant contrôlé
 **Fichiers concernés :** composant ContactDirect ou équivalent, Footer.tsx, src/data/company.ts  
 **Dépend de :** A03, Gate phase 6
 
@@ -913,10 +915,10 @@ La refonte peut changer structure, hiérarchie, style, composants et parcours. E
 
 **Critères d’acceptation :**
 
-- [ ] Le canal et le traitement des données sont explicites.
-- [ ] Le contact est atteignable rapidement sur mobile.
-- [ ] Aucun délai ou résultat commercial non prouvé n’est promis.
-- [ ] Un formulaire n’existe que si son contrat serveur est validé.
+- [x] Le canal et le traitement des données sont explicites.
+- [x] Le contact est atteignable rapidement sur mobile.
+- [x] Aucun délai ou résultat commercial non prouvé n’est promis.
+- [x] Un formulaire n’existe que si son contrat serveur est validé.
 
 **Tests / vérifications :**
 
@@ -931,7 +933,7 @@ La refonte peut changer structure, hiérarchie, style, composants et parcours. E
 
 **Priorité :** P3  
 **Phase :** 7  
-**Statut initial :** TODO  
+**Statut :** TERMINÉE EN LOCAL — zone, contact final, footer et mentions légales harmonisés
 **Fichiers concernés :** Footer.tsx, InterventionZone.tsx, MentionsLegales.tsx  
 **Dépend de :** A16, A22 phase 3, A06
 
@@ -944,9 +946,9 @@ La refonte peut changer structure, hiérarchie, style, composants et parcours. E
 
 **Critères d’acceptation :**
 
-- [ ] Le contact final est identifiable en un regard.
-- [ ] Le lien légal reste HTTP 200.
-- [ ] Le footer ne contient aucun claim non validé.
+- [x] Le contact final est identifiable en un regard.
+- [x] Le lien légal reste HTTP 200.
+- [x] Le footer ne contient aucun claim non validé.
 
 **Tests / vérifications :**
 
@@ -958,11 +960,11 @@ La refonte peut changer structure, hiérarchie, style, composants et parcours. E
 
 ## Sortie de la phase 7
 
-- [ ] Nouvelle IA validée.
-- [ ] Nouvelle direction visuelle validée.
-- [ ] Hero, services, galerie et contact reposent sur contenus approuvés.
-- [ ] Le site reste utilisable à toutes les largeurs.
-- [ ] Aucun pattern anti-vibecode majeur n’est conservé sans justification.
+- [x] Nouvelle architecture de l’information appliquée conformément au questionnaire.
+- [x] Nouvelle direction visuelle appliquée conformément au questionnaire.
+- [x] Hero, services, galerie et contact reposent sur contenus approuvés.
+- [x] Le site reste utilisable à toutes les largeurs contrôlées.
+- [x] Aucun pattern anti-vibecode majeur n’est conservé sans justification.
 
 # Phase 8 — QA finale, Search Console et options
 

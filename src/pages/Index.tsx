@@ -3,6 +3,7 @@ import SiteHeader from "@/components/SiteHeader";
 import Stats from "@/components/Stats";
 import About from "@/components/About";
 import Services from "@/components/Services";
+import Method from "@/components/Method";
 import Realizations from "@/components/Realizations";
 import InterventionZone from "@/components/InterventionZone";
 import ContactForm from "@/components/ContactForm";
@@ -20,6 +21,7 @@ const Index = () => {
         <Stats />
         <About />
         <Services />
+        <Method />
         <Realizations />
         <InterventionZone />
         <ContactForm />
