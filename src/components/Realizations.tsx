@@ -15,6 +15,7 @@ const Realizations = () => {
   const lastFocusedElementRef = useRef<HTMLElement | null>(null);
   const filteredProjects = activeCategory === "all" ? realizations : realizations.filter((project) => project.category === activeCategory);
   const modalOpen = selectedIndex !== null;
+  const selectedProject = selectedIndex === null ? null : filteredProjects[selectedIndex];
   const carouselDuration = `${Math.max(filteredProjects.length * 5.5, 18)}s`;
 
   const categories = isEnglish
@@ -32,6 +33,7 @@ const Realizations = () => {
       ];
 
   const projectTitle = (project: (typeof realizations)[number]) => (isEnglish ? project.titleEn : project.title);
+  const localized = (text: { fr: string; en: string }) => (isEnglish ? text.en : text.fr);
   const categoryLabel = (category: (typeof realizations)[number]["category"]) => {
     if (category === "terrasses") return isEnglish ? "Terraces & paving" : "Terrasses & dallages";
     if (category === "acces") return isEnglish ? "Outdoor access" : "Accès extérieurs";
@@ -116,7 +118,7 @@ const Realizations = () => {
               {isEnglish ? "Work that shows the material and the gesture." : "Des réalisations qui montrent la matière et le geste."}
             </h2>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-              {isEnglish ? "Browse the projects at your own pace, then click a photo to enlarge it." : "Parcourez les réalisations à votre rythme, puis cliquez sur une photo pour l'agrandir."}
+              {isEnglish ? "Each image opens a project note with the visible work and the material shown." : "Chaque image ouvre une fiche avec l'intervention visible et la matière montrée."}
             </p>
           </div>
         </div>
@@ -143,7 +145,7 @@ const Realizations = () => {
         <div className="realizations-carousel mt-10">
           <div className="mb-5 flex items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">
-              {isEnglish ? "Projects scroll automatically; swipe or use the arrows to browse." : "Les projets défilent automatiquement ; faites glisser ou utilisez les flèches pour parcourir."}
+              {isEnglish ? "The gallery advances automatically; swipe or use the arrows to browse." : "La galerie avance automatiquement ; faites glisser ou utilisez les flèches pour parcourir."}
             </p>
             <div className="flex shrink-0 gap-2">
               <button
@@ -190,7 +192,7 @@ const Realizations = () => {
                         lastFocusedElementRef.current = event.currentTarget;
                         setSelectedIndex(index);
                       }}
-                      className="group relative h-[24rem] w-[calc(100vw-2rem)] shrink-0 snap-start overflow-hidden rounded-md bg-primary-dark text-left shadow-sm transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary/40 sm:h-[27rem] sm:w-[32rem] lg:w-[min(36rem,34vw)]"
+                      className="group relative h-[24rem] w-[calc(100vw-2rem)] shrink-0 snap-start overflow-hidden rounded-sm bg-primary-dark text-left transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary/40 sm:h-[27rem] sm:w-[32rem] lg:w-[min(36rem,34vw)]"
                       aria-label={isEnglish ? `Enlarge: ${projectTitle(project)}` : `Agrandir : ${projectTitle(project)}`}
                     >
                       <img
@@ -215,25 +217,70 @@ const Realizations = () => {
         </div>
       </div>
 
-      {selectedIndex !== null && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-primary-dark/95 p-4" role="dialog" aria-modal="true" aria-labelledby="project-dialog-title" onClick={() => setSelectedIndex(null)} onKeyDown={handleModalKeyDown}>
-          <div className="relative flex max-h-full max-w-6xl items-center" onClick={(event) => event.stopPropagation()}>
-            <button type="button" onClick={showPrevious} className="absolute left-2 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full bg-background text-primary shadow-lg transition-colors hover:bg-secondary hover:text-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary/40 sm:-left-16" aria-label={isEnglish ? "Previous photo" : "Photo précédente"}>
-              <ChevronLeft className="h-6 w-6" aria-hidden="true" />
-            </button>
-            <figure className="max-h-[90vh] overflow-hidden rounded-md border border-white/15 bg-primary-dark">
-              <img src={filteredProjects[selectedIndex].image} alt={projectTitle(filteredProjects[selectedIndex])} width={filteredProjects[selectedIndex].width} height={filteredProjects[selectedIndex].height} decoding="async" className="max-h-[76vh] max-w-[calc(100vw-2rem)] object-contain sm:max-w-[80vw]" />
-              <figcaption className="px-5 py-4 text-white sm:px-7 sm:py-5">
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-secondary">{categoryLabel(filteredProjects[selectedIndex].category)}</p>
-                <h2 id="project-dialog-title" className="mt-1 font-display text-xl font-semibold sm:text-2xl">{projectTitle(filteredProjects[selectedIndex])}</h2>
-              </figcaption>
-            </figure>
-            <button type="button" onClick={showNext} className="absolute right-2 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full bg-background text-primary shadow-lg transition-colors hover:bg-secondary hover:text-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary/40 sm:-right-16" aria-label={isEnglish ? "Next photo" : "Photo suivante"}>
-              <ChevronRight className="h-6 w-6" aria-hidden="true" />
-            </button>
-            <button ref={modalCloseRef} type="button" onClick={() => setSelectedIndex(null)} className="absolute -right-1 -top-12 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background text-primary shadow-lg transition-colors hover:bg-secondary hover:text-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary/40" aria-label={isEnglish ? "Close preview" : "Fermer l'aperçu"}>
-              <X className="h-5 w-5" aria-hidden="true" />
-            </button>
+      {selectedProject && (
+        <div className="fixed inset-0 z-[60] overflow-y-auto bg-primary-dark/95 p-4 sm:p-8" role="dialog" aria-modal="true" aria-labelledby="project-dialog-title" aria-describedby="project-dialog-description" onClick={() => setSelectedIndex(null)} onKeyDown={handleModalKeyDown}>
+          <div className="relative flex min-h-full items-center justify-center">
+            <div className="relative grid max-h-[calc(100dvh-2rem)] w-full max-w-6xl overflow-hidden rounded-md border border-white/15 bg-primary-dark lg:max-h-[calc(100dvh-4rem)] lg:grid-cols-[minmax(0,1.3fr)_minmax(19rem,0.7fr)]" onClick={(event) => event.stopPropagation()}>
+              <button type="button" onClick={showPrevious} className="absolute left-2 top-1/2 z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-background text-primary shadow-lg transition-colors hover:bg-secondary hover:text-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary/40" aria-label={isEnglish ? "Previous project" : "Réalisation précédente"}>
+                <ChevronLeft className="h-6 w-6" aria-hidden="true" />
+              </button>
+              <button type="button" onClick={showNext} className="absolute right-2 top-1/2 z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-background text-primary shadow-lg transition-colors hover:bg-secondary hover:text-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary/40" aria-label={isEnglish ? "Next project" : "Réalisation suivante"}>
+                <ChevronRight className="h-6 w-6" aria-hidden="true" />
+              </button>
+              <button ref={modalCloseRef} type="button" onClick={() => setSelectedIndex(null)} className="absolute right-3 top-3 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background text-primary shadow-lg transition-colors hover:bg-secondary hover:text-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary/40" aria-label={isEnglish ? "Close project details" : "Fermer les détails du projet"}>
+                <X className="h-5 w-5" aria-hidden="true" />
+              </button>
+
+              <figure className="flex min-h-0 flex-col bg-black/10">
+                <div className="flex min-h-0 flex-1 items-center justify-center p-2 sm:p-4">
+                  <img src={selectedProject.image} alt={projectTitle(selectedProject)} width={selectedProject.width} height={selectedProject.height} decoding="async" className="max-h-[48vh] w-full object-contain sm:max-h-[56vh] lg:max-h-[calc(100dvh-4rem)]" />
+                </div>
+              </figure>
+
+              <aside className="max-h-[40vh] overflow-y-auto border-t border-white/15 px-5 py-12 text-white sm:px-7 sm:py-14 lg:max-h-[calc(100dvh-4rem)] lg:border-l lg:border-t-0 lg:px-8 lg:py-16">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-secondary">{categoryLabel(selectedProject.category)}</p>
+                <h2 id="project-dialog-title" className="mt-3 max-w-sm font-display text-3xl font-semibold leading-tight sm:text-4xl">{projectTitle(selectedProject)}</h2>
+                <p id="project-dialog-description" className="mt-5 max-w-md text-base leading-relaxed text-primary-foreground/70">{localized(selectedProject.details.summary)}</p>
+
+                <div className="mt-8 border-y border-white/15 py-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-secondary">{isEnglish ? "Project notes" : "Repères du chantier"}</p>
+                  <dl className="mt-4 grid gap-4 text-sm">
+                    <div>
+                      <dt className="text-primary-foreground/50">{isEnglish ? "Category" : "Type de réalisation"}</dt>
+                      <dd className="mt-1 font-medium text-white">{categoryLabel(selectedProject.category)}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-primary-foreground/50">{isEnglish ? "Visible work" : "Élément visible"}</dt>
+                      <dd className="mt-1 font-medium text-white">{localized(selectedProject.details.visibleWork)}</dd>
+                    </div>
+                    {selectedProject.details.duration && (
+                      <div>
+                        <dt className="text-primary-foreground/50">{isEnglish ? "Duration" : "Durée"}</dt>
+                        <dd className="mt-1 font-medium text-white">{localized(selectedProject.details.duration)}</dd>
+                      </div>
+                    )}
+                    {selectedProject.details.cost && (
+                      <div>
+                        <dt className="text-primary-foreground/50">{isEnglish ? "Budget" : "Budget"}</dt>
+                        <dd className="mt-1 font-medium text-white">{localized(selectedProject.details.cost)}</dd>
+                      </div>
+                    )}
+                    {typeof selectedProject.details.satisfaction === "number" && (
+                      <div>
+                        <dt className="text-primary-foreground/50">{isEnglish ? "Client satisfaction" : "Satisfaction client"}</dt>
+                        <dd className="mt-1 font-medium text-secondary" aria-label={isEnglish ? `${selectedProject.details.satisfaction} out of 5 stars` : `${selectedProject.details.satisfaction} étoiles sur 5`}>
+                          {"★".repeat(selectedProject.details.satisfaction)}{"☆".repeat(5 - selectedProject.details.satisfaction)}
+                        </dd>
+                      </div>
+                    )}
+                  </dl>
+                </div>
+
+                <p className="mt-5 max-w-md text-sm leading-relaxed text-primary-foreground/55">
+                  {isEnglish ? "Duration, budget and client feedback are shared after the project has been discussed and validated." : "La durée, le budget et l’avis client sont communiqués après échange et validation du projet."}
+                </p>
+              </aside>
+            </div>
           </div>
         </div>
       )}

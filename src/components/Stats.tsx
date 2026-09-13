@@ -7,16 +7,16 @@ const Stats = () => {
 
   const highlights = isEnglish
     ? [
-        { icon: TrendingUp, value: "20+", label: "Years of experience", description: "A lasting practice of the masonry trade." },
+        { icon: TrendingUp, value: "20+", label: "Years in the trade", description: "A career rooted in masonry work." },
         { icon: Users, value: "500+", label: "Projects completed", description: "For private and professional clients." },
-        { icon: Award, value: "Master craftsman certificate", label: "Qualified mason", description: "A recognised qualification in masonry." },
-        { icon: Map, value: "A journey across France", label: "Enriched expertise", description: "Different masonry techniques learned along the way." },
+        { icon: Award, value: "Master craftsman certificate", label: "Qualified mason", description: "A masonry qualification held by the founder." },
+        { icon: Map, value: "A journey across France", label: "Techniques learned", description: "Different masonry techniques acquired along the way." },
       ]
     : [
-        { icon: TrendingUp, value: "20+", label: "Années d'expertise", description: "Une pratique durable du métier de maçon." },
+        { icon: TrendingUp, value: "20+", label: "Années dans le métier", description: "Une carrière ancrée dans les travaux de maçonnerie." },
         { icon: Users, value: "500+", label: "Projets réalisés", description: "Pour les particuliers et les professionnels." },
-        { icon: Award, value: "Brevet de maîtrise", label: "Artisan maçon qualifié", description: "Une qualification reconnue en maçonnerie." },
-        { icon: Map, value: "Tour de France", label: "Un savoir-faire enrichi", description: "Différentes techniques de maçonnerie acquises au fil du parcours." },
+        { icon: Award, value: "Brevet de maîtrise", label: "Artisan maçon qualifié", description: "Une qualification de maçon détenue par le fondateur." },
+        { icon: Map, value: "Tour de France", label: "Techniques acquises", description: "Différentes techniques de maçonnerie apprises au fil du parcours." },
       ];
 
   return (
@@ -25,7 +25,7 @@ const Stats = () => {
         <div className="grid gap-10 lg:grid-cols-[minmax(15rem,0.7fr)_minmax(0,1.7fr)] lg:gap-16">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-secondary">
-              {isEnglish ? "Experience & expertise" : "Expérience & savoir-faire"}
+              {isEnglish ? "Experience & trade" : "Expérience & métier"}
             </p>
             <h2 id="proof-title" className="mt-3 max-w-sm font-display text-3xl font-semibold leading-tight sm:text-4xl">
               {isEnglish ? "A craft built on practice." : "Un métier construit par la pratique."}

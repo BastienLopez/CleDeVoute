@@ -31,7 +31,7 @@ const InterventionZone = () => {
               src={googleMapsEmbedUrl}
               className="h-[22rem] w-full border-0 sm:h-[28rem]"
               allowFullScreen
-              loading="lazy"
+              loading="eager"
               referrerPolicy="strict-origin-when-cross-origin"
             />
             <figcaption className="border-t border-primary/15 px-5 py-4 text-sm text-muted-foreground sm:px-6">

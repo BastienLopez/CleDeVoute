@@ -12,6 +12,11 @@ const requiredFiles = [
 ];
 
 const routeMetadata = {
+  "index.html": [
+    '<meta property="og:image" content="https://bastienlopez.github.io/CleDeVoute/og-image.jpg" />',
+    '<meta name="twitter:card" content="summary_large_image" />',
+    '<meta name="twitter:image" content="https://bastienlopez.github.io/CleDeVoute/og-image.jpg" />',
+  ],
   "mentions-legales/index.html": [
     "<title>Mentions légales | La clé de voûte</title>",
     '<meta name="robots" content="index, follow" />',
@@ -22,6 +27,13 @@ const routeMetadata = {
     '<meta name="robots" content="noindex, follow" />',
   ],
 };
+
+try {
+  await access(path.join(distDirectory, "og-image.jpg"));
+} catch {
+  console.error("[test-contracts] Image sociale manquante : dist/og-image.jpg");
+  process.exit(1);
+}
 
 for (const relativeFile of requiredFiles) {
   const filePath = path.join(distDirectory, relativeFile);
@@ -46,8 +58,8 @@ for (const relativeFile of requiredFiles) {
   }
 
   if (relativeFile === "404.html") {
-    if (html.includes('<link rel="canonical"') || html.includes('<meta property="og:url"') || html.includes('type="application/ld+json"')) {
-      console.error("[test-contracts] Le fallback 404 ne doit pas déclarer l’accueil via ses metadata ou son JSON-LD.");
+    if (html.includes('<link rel="canonical"') || html.includes('<meta property="og:url"') || html.includes('<meta property="og:image"') || html.includes('<meta name="twitter:image"') || html.includes('type="application/ld+json"')) {
+      console.error("[test-contracts] Le fallback 404 ne doit pas déclarer l’accueil via ses metadata sociales ou son JSON-LD.");
       process.exit(1);
     }
   }

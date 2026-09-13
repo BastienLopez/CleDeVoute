@@ -61,7 +61,7 @@ const Hero = () => {
                   </span>
                   <span className="w-full text-center text-sm font-medium text-primary/60">{company.phoneDisplay}</span>
                 </a>
-                <div className="hidden h-20 items-center justify-center rounded-md border border-primary/10 bg-background px-4 shadow-sm md:flex">
+                <div className="hidden h-20 items-center justify-center rounded-sm border border-primary/10 bg-background px-4 md:flex">
                   <img src={logoSrc} alt="La clé de voûte" width={551} height={164} className="h-14 w-auto" />
                 </div>
               </div>
@@ -79,12 +79,12 @@ const Hero = () => {
 
           </div>
 
-          <figure className="relative min-w-0 overflow-hidden rounded-[1.5rem] border border-primary/10 bg-primary-dark shadow-xl">
+          <figure className="relative min-w-0 overflow-hidden rounded-sm border border-primary/10 bg-primary-dark shadow-lg">
             <img
               src={heroImage}
-              alt={isEnglish ? "Masonry work on a brick building" : "Travaux de maçonnerie sur un bâtiment en briques"}
-              width={1920}
-              height={1080}
+              alt={isEnglish ? "Mason working on a stone wall" : "Maçon intervenant sur un mur en pierre"}
+              width={1086}
+              height={1448}
               loading="eager"
               decoding="async"
               className="aspect-[4/5] w-full object-cover sm:aspect-[5/4] lg:aspect-[4/5]"

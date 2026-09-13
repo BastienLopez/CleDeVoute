@@ -30,10 +30,10 @@ const Method = () => {
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-secondary">{isEnglish ? "The process" : "La méthode"}</p>
           <div>
             <h2 className="max-w-3xl font-display text-4xl font-semibold leading-[1.08] tracking-[-0.02em] text-primary-dark sm:text-5xl">
-              {isEnglish ? "A clear path from the first call to completion." : "Un chemin clair, du premier échange à la réception."}
+              {isEnglish ? "From the first exchange to the finished work." : "Du premier échange à la fin des travaux."}
             </h2>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-              {isEnglish ? "Each project starts with a direct conversation and moves forward step by step." : "Chaque projet commence par un échange direct et avance étape par étape."}
+              {isEnglish ? "The work is discussed, prepared and reviewed at each key stage." : "Les travaux sont discutés, préparés puis vérifiés à chaque étape importante."}
             </p>
           </div>
         </div>

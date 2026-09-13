@@ -7,15 +7,15 @@ const About = () => {
   const commitments = isEnglish
     ? [
         { icon: Award, number: "01", title: "Master craftsman certificate", description: "A recognised masonry qualification." },
-        { icon: Map, number: "02", title: "A rich professional journey", description: "Different techniques acquired across France." },
-        { icon: Hammer, number: "03", title: "Broad masonry expertise", description: "New builds, renovation, stonework and outdoor works." },
-        { icon: Handshake, number: "04", title: "A relationship of trust", description: "A careful approach to every project." },
+        { icon: Map, number: "02", title: "Techniques learned in the field", description: "A professional journey across France." },
+        { icon: Hammer, number: "03", title: "From structure to exteriors", description: "New builds, renovation, stonework and outdoor works." },
+        { icon: Handshake, number: "04", title: "A direct exchange", description: "The work is framed with the client from the first discussion." },
       ]
     : [
         { icon: Award, number: "01", title: "Brevet de maîtrise", description: "Une qualification forte dans le métier de maçon." },
-        { icon: Map, number: "02", title: "Un parcours riche", description: "Différentes techniques acquises au cours du Tour de France." },
-        { icon: Hammer, number: "03", title: "Une maçonnerie complète", description: "Construction, rénovation, pierre et aménagements extérieurs." },
-        { icon: Handshake, number: "04", title: "Une relation de confiance", description: "Une attention portée à chaque projet et à chaque client." },
+        { icon: Map, number: "02", title: "Des techniques de terrain", description: "Un parcours professionnel construit au fil du Tour de France." },
+        { icon: Hammer, number: "03", title: "Du gros œuvre aux extérieurs", description: "Construction, rénovation, pierre et aménagements extérieurs." },
+        { icon: Handshake, number: "04", title: "Un échange direct", description: "Des travaux cadrés avec le client dès le premier échange." },
       ];
 
   return (
@@ -25,7 +25,7 @@ const About = () => {
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-secondary">{isEnglish ? "The company" : "L'entreprise"}</p>
             <h2 className="mt-4 max-w-xl font-display text-4xl font-semibold leading-[1.08] tracking-[-0.02em] text-primary-dark sm:text-5xl">
-              {isEnglish ? "A craft built on experience." : "Un savoir-faire construit avec l'expérience."}
+              {isEnglish ? "A trade learned on the ground." : "Un métier appris sur le terrain."}
             </h2>
             <div className="mt-8 space-y-5 text-lg leading-relaxed text-muted-foreground">
               <p>
@@ -44,8 +44,8 @@ const About = () => {
               </p>
               <p>
                 {isEnglish
-                  ? "The goal is simple: bring sound technical expertise to projects while building a lasting relationship of trust."
-                  : "L'objectif est simple : mettre une expertise technique solide au service des projets, tout en construisant une relation de confiance durable."}
+                  ? "Each project starts with a direct exchange, a look at the existing building and a clear outline of the work to be done."
+                  : "Chaque projet commence par un échange direct, une lecture du bâti et une définition claire des travaux à réaliser."}
               </p>
             </div>
           </div>

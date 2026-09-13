@@ -74,10 +74,10 @@ const Services = () => {
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-secondary">{isEnglish ? "What we do" : "Nos prestations"}</p>
           <div>
             <h2 className="max-w-3xl font-display text-4xl font-semibold leading-[1.08] tracking-[-0.02em] text-primary-dark sm:text-5xl">
-              {isEnglish ? "Masonry expertise, from structure to finish." : "Un savoir-faire en maçonnerie, de la structure aux finitions."}
+              {isEnglish ? "Build, renovate and work with stone." : "Construire, rénover et travailler la pierre."}
             </h2>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-              {isEnglish ? "From new builds to renovation work, La clé de voûte takes on a wide range of indoor and outdoor projects." : "De la construction neuve aux travaux de rénovation, La clé de voûte intervient sur une large variété de projets intérieurs et extérieurs."}
+              {isEnglish ? "Each intervention starts with the existing building, its constraints and the use expected from the finished space." : "Chaque intervention part du bâti, de ses contraintes et de l'usage attendu une fois les travaux terminés."}
             </p>
           </div>
         </div>

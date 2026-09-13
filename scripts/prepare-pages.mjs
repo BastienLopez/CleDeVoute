@@ -63,7 +63,7 @@ const legalHtml = setMetadata(homeHtml, {
   ogUrl: legalUrl,
 });
 
-const notFoundHtml = setMetadata(homeHtml, {
+let notFoundHtml = setMetadata(homeHtml, {
   title: "Page introuvable | La clé de voûte",
   description: "La page demandée n'existe pas sur le site de La clé de voûte.",
   robots: "noindex, follow",
@@ -72,6 +72,17 @@ const notFoundHtml = setMetadata(homeHtml, {
   ogDescription: "La page demandée n'existe pas sur le site de La clé de voûte.",
   ogUrl: null,
 }).replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>\s*/, "");
+
+for (const [pattern, label] of [
+  [/<meta property="og:image(?::[^"]+)?"[^>]*\s*\/>\s*/g, "og:image"],
+  [/<meta name="twitter:card"[^>]*\s*\/>\s*/g, "twitter:card"],
+  [/<meta name="twitter:image"[^>]*\s*\/>\s*/g, "twitter:image"],
+]) {
+  if (!pattern.test(notFoundHtml)) {
+    throw new Error(`[prepare-pages] Balise metadata introuvable : ${label}`);
+  }
+  notFoundHtml = notFoundHtml.replace(pattern, "");
+}
 
 await writeFile(path.join(distDirectory, "mentions-legales", "index.html"), legalHtml);
 await writeFile(path.join(distDirectory, "404.html"), notFoundHtml);

@@ -48,14 +48,21 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
     const canonicalElement = document.querySelector('link[rel="canonical"]');
     const ogUrlElement = document.querySelector('meta[property="og:url"]');
+    const ogImageElement = document.querySelector('meta[property="og:image"]');
+    const twitterImageElement = document.querySelector('meta[name="twitter:image"]');
     const canonicalBase = new URL(import.meta.env.BASE_URL, window.location.origin);
     const canonicalUrl = new URL(isHomePage ? "" : pathname.replace(/^\/+/, ""), canonicalBase).href;
     if (metadata.indexable) {
       canonicalElement?.setAttribute("href", canonicalUrl);
       ogUrlElement?.setAttribute("content", canonicalUrl);
+      const ogImageUrl = new URL("og-image.jpg", canonicalBase).href;
+      ogImageElement?.setAttribute("content", ogImageUrl);
+      twitterImageElement?.setAttribute("content", ogImageUrl);
     } else {
       canonicalElement?.remove();
       ogUrlElement?.remove();
+      ogImageElement?.remove();
+      twitterImageElement?.remove();
     }
   }, [language, pathname]);
 
