@@ -16,32 +16,36 @@
     <meta name="geo.region" content="FR-08" />
     <meta name="geo.placename" content="Sedan, Ardennes" />
     <meta name="theme-color" content="#18283b" />
-    <link rel="canonical" href="https://bastienlopez.github.io/CleDeVoute/" />
+    <link rel="canonical" href="__SITE_URL__" />
 
     <meta property="og:title" content="La clé de voûte | Maçonnerie générale à Sedan" />
     <meta property="og:description" content="Maçonnerie générale et gros œuvre à Sedan : construction neuve, rénovation, pierre, terrasses et aménagements extérieurs." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://bastienlopez.github.io/CleDeVoute/" />
+    <meta property="og:url" content="__SITE_URL__" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:site_name" content="La clé de voûte" />
-    <meta property="og:image" content="https://bastienlopez.github.io/CleDeVoute/og-image.jpg" />
+    <meta property="og:image" content="__SITE_URL__og-image.jpg" />
     <meta property="og:image:alt" content="Maçon intervenant sur un mur en pierre" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1086" />
     <meta property="og:image:height" content="1448" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://bastienlopez.github.io/CleDeVoute/og-image.jpg" />
+    <meta name="twitter:title" content="La clé de voûte | Maçonnerie générale à Sedan" />
+    <meta name="twitter:description" content="Maçonnerie générale et gros œuvre à Sedan : construction neuve, rénovation, pierre, terrasses et aménagements extérieurs." />
+    <meta name="twitter:image" content="__SITE_URL__og-image.jpg" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@graph": [
           {
             "@type": "GeneralContractor",
-            "@id": "https://bastienlopez.github.io/CleDeVoute/#business",
+            "@id": "__SITE_URL__#business",
             "name": "La clé de voûte",
             "legalName": "Marino ZORZA",
             "description": "Entreprise de maçonnerie générale et gros œuvre à Sedan.",
-            "url": "https://bastienlopez.github.io/CleDeVoute/",
+            "url": "__SITE_URL__",
+            "image": "__SITE_URL__og-image.jpg",
+            "logo": "__SITE_URL__logo.png",
             "telephone": "+33669158671",
             "email": "marino.zorza@lacledevoute-maconnerie.fr",
             "identifier": {
@@ -56,17 +60,53 @@
               "addressLocality": "Sedan",
               "addressCountry": "FR"
             },
-            "areaServed": {
-              "@type": "AdministrativeArea",
-              "name": "Ardennes"
-            }
+            "areaServed": [
+              {
+                "@type": "City",
+                "name": "Sedan",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Ardennes"
+                }
+              },
+              {
+                "@type": "AdministrativeArea",
+                "name": "Ardennes"
+              }
+            ],
+            "serviceType": [
+              "Construction et gros œuvre",
+              "Rénovation et réhabilitation",
+              "Pierre, enduits et revêtements",
+              "Aménagements extérieurs"
+            ],
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Prestations de maçonnerie",
+              "itemListElement": [
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Construction et gros œuvre" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Rénovation et réhabilitation" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pierre, enduits et revêtements" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Aménagements extérieurs" } }
+              ]
+            },
+            "mainEntityOfPage": { "@id": "__SITE_URL__#webpage" }
           },
           {
             "@type": "WebSite",
-            "@id": "https://bastienlopez.github.io/CleDeVoute/#website",
-            "url": "https://bastienlopez.github.io/CleDeVoute/",
+            "@id": "__SITE_URL__#website",
+            "url": "__SITE_URL__",
             "name": "La clé de voûte",
-            "inLanguage": ["fr", "en"]
+            "inLanguage": "fr-FR"
+          },
+          {
+            "@type": "WebPage",
+            "@id": "__SITE_URL__#webpage",
+            "url": "__SITE_URL__",
+            "name": "La clé de voûte | Maçonnerie générale et gros œuvre à Sedan",
+            "isPartOf": { "@id": "__SITE_URL__#website" },
+            "about": { "@id": "__SITE_URL__#business" },
+            "inLanguage": "fr-FR"
           }
         ]
       }

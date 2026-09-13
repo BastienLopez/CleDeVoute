@@ -1,7 +1,15 @@
 import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { company } from "@/data/company";
 
 export type Language = "fr" | "en";
+
+const serviceNames = [
+  "Construction et gros œuvre",
+  "Rénovation et réhabilitation",
+  "Pierre, enduits et revêtements",
+  "Aménagements extérieurs",
+] as const;
 
 type LanguageContextValue = {
   language: Language;
@@ -49,20 +57,103 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     const canonicalElement = document.querySelector('link[rel="canonical"]');
     const ogUrlElement = document.querySelector('meta[property="og:url"]');
     const ogImageElement = document.querySelector('meta[property="og:image"]');
+    const twitterTitleElement = document.querySelector('meta[name="twitter:title"]');
+    const twitterDescriptionElement = document.querySelector('meta[name="twitter:description"]');
     const twitterImageElement = document.querySelector('meta[name="twitter:image"]');
     const canonicalBase = new URL(import.meta.env.BASE_URL, window.location.origin);
     const canonicalUrl = new URL(isHomePage ? "" : pathname.replace(/^\/+/, ""), canonicalBase).href;
+    let structuredDataElement = document.querySelector<HTMLScriptElement>('script[type="application/ld+json"]');
+    if (metadata.indexable && !structuredDataElement) {
+      structuredDataElement = document.createElement("script");
+      structuredDataElement.type = "application/ld+json";
+      document.head.appendChild(structuredDataElement);
+    }
+
+    const homeStructuredData = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "GeneralContractor",
+          "@id": `${canonicalBase.href}#business`,
+          name: company.name,
+          legalName: company.legalName,
+          description: "Entreprise de maçonnerie générale et gros œuvre à Sedan.",
+          url: canonicalBase.href,
+          image: new URL("og-image.jpg", canonicalBase).href,
+          logo: new URL("logo.png", canonicalBase).href,
+          telephone: "+33669158671",
+          email: company.email,
+          identifier: { "@type": "PropertyValue", propertyID: "SIREN", value: company.siren.replace(/\s/g, "") },
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: company.address.line1,
+            postalCode: company.address.postalCode,
+            addressLocality: company.address.city,
+            addressCountry: "FR",
+          },
+          areaServed: [
+            { "@type": "City", name: "Sedan", containedInPlace: { "@type": "AdministrativeArea", name: "Ardennes" } },
+            { "@type": "AdministrativeArea", name: "Ardennes" },
+          ],
+          serviceType: serviceNames,
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "Prestations de maçonnerie",
+            itemListElement: serviceNames.map((name) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name } })),
+          },
+          mainEntityOfPage: { "@id": `${canonicalBase.href}#webpage` },
+        },
+        {
+          "@type": "WebSite",
+          "@id": `${canonicalBase.href}#website`,
+          url: canonicalBase.href,
+          name: company.name,
+          inLanguage: "fr-FR",
+        },
+        {
+          "@type": "WebPage",
+          "@id": `${canonicalBase.href}#webpage`,
+          url: canonicalBase.href,
+          name: metadata.title,
+          isPartOf: { "@id": `${canonicalBase.href}#website` },
+          about: { "@id": `${canonicalBase.href}#business` },
+          inLanguage: language === "fr" ? "fr-FR" : "en-US",
+        },
+      ],
+    };
+
     if (metadata.indexable) {
       canonicalElement?.setAttribute("href", canonicalUrl);
       ogUrlElement?.setAttribute("content", canonicalUrl);
+      twitterTitleElement?.setAttribute("content", metadata.title);
+      twitterDescriptionElement?.setAttribute("content", metadata.ogDescription);
       const ogImageUrl = new URL("og-image.jpg", canonicalBase).href;
       ogImageElement?.setAttribute("content", ogImageUrl);
       twitterImageElement?.setAttribute("content", ogImageUrl);
+
+      if (isHomePage && structuredDataElement) {
+        structuredDataElement.textContent = JSON.stringify(homeStructuredData);
+      } else if (isLegalPage && structuredDataElement) {
+        structuredDataElement.textContent = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "@id": `${canonicalUrl}#webpage`,
+          url: canonicalUrl,
+          name: metadata.title,
+          description: metadata.description,
+          isPartOf: { "@id": `${canonicalBase.href}#website` },
+          about: { "@id": `${canonicalBase.href}#business` },
+          inLanguage: language === "fr" ? "fr-FR" : "en-US",
+        });
+      }
     } else {
       canonicalElement?.remove();
       ogUrlElement?.remove();
       ogImageElement?.remove();
+      twitterTitleElement?.remove();
+      twitterDescriptionElement?.remove();
       twitterImageElement?.remove();
+      structuredDataElement?.remove();
     }
   }, [language, pathname]);
 

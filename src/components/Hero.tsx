@@ -9,10 +9,10 @@ const Hero = () => {
   const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
 
   return (
-    <section id="top" className="scroll-mt-24 bg-stone/35 lg:pt-20">
-      <div className="container px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
-        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(23rem,0.82fr)] lg:gap-16">
-          <div className="min-w-0 max-w-3xl">
+    <section id="top" className="scroll-mt-24 bg-stone/35 lg:pt-6">
+      <div className="hero-container container px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20 min-[2000px]:max-w-[2048px]">
+        <div className="hero-layout grid items-center gap-12 xl:mx-9 xl:grid-cols-[minmax(0,1.1fr)_minmax(23rem,0.9fr)] xl:gap-0 min-[2000px]:mx-0 min-[2000px]:grid-cols-[minmax(0,1.05fr)_minmax(34rem,0.95fr)] min-[2000px]:gap-64">
+          <div className="min-w-0 max-w-3xl xl:max-w-none">
             <div className="mb-7 flex items-start justify-between gap-4 md:block">
               <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold uppercase tracking-[0.16em] text-secondary sm:text-sm">
                 <span className="inline-flex items-center gap-2">
@@ -27,7 +27,7 @@ const Hero = () => {
               </div>
             </div>
 
-            <h1 className="max-w-full break-words font-display text-4xl font-bold leading-[1.04] tracking-[-0.03em] text-primary-dark sm:text-6xl lg:text-7xl">
+            <h1 className="max-w-full break-words font-display text-4xl font-bold leading-[1.04] tracking-[-0.03em] text-primary-dark sm:text-6xl lg:text-6xl xl:text-7xl">
               {isEnglish ? (
                 <>General masonry & structural work in <span className="text-secondary">Sedan.</span></>
               ) : (
@@ -79,7 +79,7 @@ const Hero = () => {
 
           </div>
 
-          <figure className="relative min-w-0 overflow-hidden rounded-sm border border-primary/10 bg-primary-dark shadow-lg">
+          <figure className="hero-visual relative min-w-0 overflow-hidden rounded-sm border border-primary/10 bg-primary-dark shadow-lg">
             <img
               src={heroImage}
               alt={isEnglish ? "Mason working on a stone wall" : "Maçon intervenant sur un mur en pierre"}
@@ -87,7 +87,7 @@ const Hero = () => {
               height={1448}
               loading="eager"
               decoding="async"
-              className="aspect-[4/5] w-full object-cover sm:aspect-[5/4] lg:aspect-[4/5]"
+              className="h-full w-full object-cover"
             />
             <figcaption className="absolute inset-x-0 bottom-0 border-t border-white/15 bg-primary-dark/95 px-6 py-5 text-primary-foreground sm:px-7">
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-secondary">La clé de voûte</p>

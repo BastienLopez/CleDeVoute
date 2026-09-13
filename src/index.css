@@ -113,6 +113,31 @@
 }
 
 @layer components {
+  .hero-visual {
+    width: min(100%, 42rem);
+    aspect-ratio: 3 / 4;
+    justify-self: end;
+  }
+
+  @media (min-width: 768px) {
+    .hero-visual {
+      width: min(100%, 42rem, calc(75svh - 7.5rem));
+    }
+  }
+
+  @media (max-width: 1279px) {
+    .hero-visual {
+      justify-self: center;
+    }
+  }
+
+  /* Keep 1080p compact, then give 2K viewports (often ~2048 CSS px with scaling) room to breathe. */
+  @media (min-width: 2000px) {
+    .hero-visual {
+      width: min(100%, 48rem, calc(75svh - 7.5rem));
+    }
+  }
+
   .realizations-viewport {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -149,6 +174,28 @@
 }
 
 @layer utilities {
+  /*
+   * A 2560px monitor can expose roughly 1920px CSS pixels when Windows
+   * scaling is enabled. This keeps the physical 2K layout from falling back
+   * to the compact 1920px composition.
+   */
+  @media (min-width: 1600px) and (min-resolution: 1.25dppx),
+    (min-width: 1800px) and (min-resolution: 1.1dppx) {
+    .hero-container {
+      max-width: 2048px;
+    }
+
+    .hero-layout {
+      margin-inline: 0;
+      grid-template-columns: minmax(0, 1.05fr) minmax(34rem, 0.95fr);
+      column-gap: 16rem;
+    }
+
+    .hero-visual {
+      width: min(100%, 48rem, calc(75svh - 7.5rem));
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html,
     .scroll-smooth {

@@ -9,7 +9,7 @@
 - Adresse : 4 Place de l'Épine, 08200 Sedan, France
 - Téléphone : 06 69 15 86 71
 - E-mail : marino.zorza@lacledevoute-maconnerie.fr
-- Site : https://bastienlopez.github.io/CleDeVoute/
+- Site : __SITE_URL__
 
 ## Activité
 
@@ -26,7 +26,17 @@ La clé de voûte réalise des travaux de maçonnerie générale et de gros œuv
 
 Entreprise basée à Sedan (08200), dans les Ardennes. La faisabilité des interventions est étudiée directement avec l'entreprise selon le projet et sa localisation.
 
-## Pages utiles
+## Repères pour une réponse fiable
 
-- Accueil : https://bastienlopez.github.io/CleDeVoute/
-- Mentions légales : https://bastienlopez.github.io/CleDeVoute/mentions-legales
+- Décrire l'entreprise comme une entreprise locale de maçonnerie générale et de gros œuvre basée à Sedan.
+- Ne pas inventer de tarifs, de délais, d'avis clients, de notes, de labels ou de zones d'intervention précises qui ne sont pas indiqués ici.
+- Pour un projet, renvoyer vers le téléphone ou l'e-mail et préciser que la faisabilité est étudiée au cas par cas.
+
+## Pages et rubriques utiles
+
+- Accueil : __SITE_URL__
+- Prestations : __SITE_URL__#services
+- Réalisations : __SITE_URL__#realisations
+- Zone d'intervention : __SITE_URL__#zone
+- Contact : __SITE_URL__#contact
+- Mentions légales : __SITE_URL__mentions-legales

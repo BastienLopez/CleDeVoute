@@ -1,12 +1,12 @@
 # Audit anti-vibecode et readiness — Clé de Voûte
 
-> Audit complet après corrections ciblées — 13 septembre 2026
+> Audit complet après corrections ciblées et préparation SEO/GEO — 13 septembre 2026
 >
 > Périmètre : checkout `C:\Users\UTILISATEUR\Documents\GitHub\CleDeVoute`, branche `main`, modifications non commitées présentes dans le worktree. L’audit couvre le socle P0–P6, les corrections ciblées P7 demandées sur l’image, le contenu, la galerie, les métadonnées, le scaffold et la carte tierce, ainsi que les limites GitHub Pages.
 
 ## 1. Verdict exécutif
 
-La base P0–P6 reste fonctionnelle et le lot de corrections demandé passe les contrôles locaux : installation reproductible, dépendances réduites au runtime réellement utilisé, build, typecheck, lint sans erreur, contrats de publication, routes locales, sécurité npm, interactions principales et responsive validés. L’image hero est optimisée, réutilisée pour le partage social, la galerie expose maintenant une fiche projet, le contenu est moins abstrait et la carte Google Maps est de nouveau chargée automatiquement.
+La base P0–P6 reste fonctionnelle et le lot de corrections demandé passe les contrôles locaux : installation reproductible, dépendances réduites au runtime réellement utilisé, build, typecheck, lint sans erreur, contrats de publication, routes locales, sécurité npm, interactions principales et responsive validés. L’image hero est optimisée, réutilisée pour le partage social, la galerie expose maintenant une fiche projet, le contenu est moins abstrait, la carte Google Maps est de nouveau chargée automatiquement et le socle SEO/GEO est maintenant généré depuis une URL unique.
 
 Le verdict n’est pas « production validée » : aucun commit, push ni déploiement n’a été effectué depuis ce checkout. Les headers `Content-Security-Policy`, `Referrer-Policy` et `X-Content-Type-Options` ne peuvent pas être ajoutés par le code statique sur GitHub Pages et restent à vérifier après publication. La provenance/licence de la photo hero n’est pas documentée dans le dépôt ; aucune origine n’est inventée dans le correctif.
 
@@ -29,6 +29,8 @@ Le verdict n’est pas « production validée » : aucun commit, push ni déploi
 - Reproduction locale de la chaîne CI/CD jusqu’à l’artifact `dist`.
 - Parcours navigateur sur l’accueil, les mentions légales, une route inconnue, FR/EN, menu, CTA, galerie, fermeture Échap et restauration du focus.
 - Responsive contrôlé aux largeurs 320, 375, 768, 1024 et 1440 px pendant cet audit ; aucun débordement horizontal de page n’a été observé, le débordement interne du carrousel étant intentionnel. L’alignement du logo et du repère mobile a été mesuré à moins d’un pixel d’écart.
+- SEO/GEO contrôlé sur l’artifact `dist` : canonical, Open Graph/Twitter, JSON-LD local, route légale, 404, `robots.txt`, sitemap XML, `llms.txt` et tokens d’URL.
+- Migration simulée vers un domaine racine avec `VITE_SITE_URL=https://www.exemple.test/` : base des assets, canonical, sitemap, robots, llms et JSON-LD recalculés sans résidu `/CleDeVoute/`.
 - Audit sécurité white-box et DAST passif limité à localhost ; aucune action intrusive.
 - Vérification en lecture seule de l’URL publique existante. Aucun accès aux paramètres GitHub, DNS, Search Console ou compte propriétaire.
 
@@ -52,6 +54,8 @@ Le lot courant corrige les constats demandés sans inventer de données de chant
 | Fiches de réalisations | `src/components/Realizations.tsx`, `src/data/realizations.ts` | Modal image + repères visibles, navigation et Échap PASS |
 | Réduction des résidus de scaffold | `src/App.tsx`, suppression de `src/components/ui/*`, `src/hooks/*` inutilisés, `package.json` | Dépendances runtime réduites aux packages réellement utilisés ; lint sans warning |
 | Carte tierce chargée automatiquement | `src/components/InterventionZone.tsx`, `src/data/map.ts`, `src/pages/MentionsLegales.tsx` | iframe présente lorsque la section est rendue, mentions alignées |
+| URL canonique et préparation domaine final | `site.config.json`, `vite.config.ts`, `scripts/prepare-pages.mjs`, `scripts/test-contracts.mjs` | Build GitHub Pages et build simulé domaine racine PASS |
+| SEO/GEO et données structurées locales | `index.html`, `src/lib/language.tsx`, `public/robots.txt`, `public/sitemap.xml`, `public/llms.txt` | Metadata, JSON-LD, sitemap, robots, llms et 404 contrôlés |
 
 ## 4. Preuves techniques
 
@@ -64,8 +68,8 @@ Le lot courant corrige les constats demandés sans inventer de données de chant
 | `npm run lint` | PASS — 0 erreur, 0 warning |
 | `npm run typecheck` | PASS — `tsc -b` |
 | `npm run check:assets` | PASS — 12 images raster, dimensions lisibles, chaque fichier sous 512 Ko |
-| `npm run build` | PASS — Vite 8.2.2, 1 597 modules transformés ; JS principal 261,84 kB |
-| `npm run prepare-pages` puis `npm test` | PASS — accueil, mentions légales et 404 générés/contrôlés |
+| `npm run build` | PASS — Vite 8.2.2, 1 597 modules transformés ; JS principal 262,41 kB |
+| `npm run prepare-pages` puis `npm test` | PASS — accueil, mentions légales, 404, robots, sitemap, llms, JSON-LD et tokens d’URL générés/contrôlés |
 | `git diff --check` | PASS — avertissements CRLF uniquement |
 | YAML du workflow | PASS — parsing Python, jobs `build` et `deploy`, déclencheurs `push`/`workflow_dispatch` |
 
@@ -74,8 +78,10 @@ Le workflow bloque bien sur `npm ci`, `npm audit`, lint, typecheck, assets, buil
 ### Parcours navigateur
 
 - Accueil : titre, description, canonical, `lang="fr"`, `main`, CSP meta, `og:image` et `twitter:image` présents.
-- Mentions légales : route directe locale 200, titre/description/canonical propres.
-- Route inconnue : fallback applicatif utile, `noindex`, sans canonical ni `og:url`.
+- Mentions légales : route directe locale 200, titre/description/canonical propres et JSON-LD `WebPage` cohérent.
+- Route inconnue : fallback applicatif utile, `noindex`, sans canonical, social metadata ni JSON-LD.
+- JSON-LD local : `GeneralContractor`, adresse, téléphone, SIREN, logo, image, zones Sedan/Ardennes et quatre prestations visibles.
+- SEO/GEO : `robots.txt` référence le sitemap, le sitemap ne contient que les routes indexables, `llms.txt` expose l'identité et les rubriques sans inventer de preuves.
 - Menu mobile : ouverture, fermeture Échap, labels et `aria-expanded` cohérents.
 - Langue : FR → EN → FR, titre et contenu traduits, état restauré.
 - Galerie : filtres, ouverture du dialogue, fiche avec intervention visible/matière, navigation suivante, verrouillage du scroll, fermeture Échap et restitution du focus au bouton d’origine.
@@ -116,14 +122,16 @@ Ces points ne sont pas des bugs de fonctionnement. Ils sont toutefois les écart
 3. **Copy abstrait — corrigé sur les zones signalées, priorité P3 résiduelle.** Les formulations « objectif simple », « large variété », « de la structure aux finitions » et plusieurs intitulés de preuve ont été remplacés par des formulations liées au bâti, à l’échange, aux travaux et aux techniques. Les claims factuels restent ceux déjà validés ; aucune précision de chantier n’a été inventée.
 4. **Réalisations — corrigé fonctionnellement, enrichissement encore dépendant des données.** Chaque carte ouvre maintenant une fiche avec catégorie, intervention visible et description courte ; durée, budget et satisfaction ne sont affichés que si des valeurs validées sont ajoutées. Les lieux, matériaux détaillés et difficultés restent à fournir par le propriétaire pour aller plus loin.
 5. **Prévisualisation sociale — corrigée.** `og:image`, dimensions, type, texte alternatif, `twitter:card=summary_large_image` et `twitter:image` pointent vers `public/og-image.jpg`, une copie optimisée de l’image hero.
-6. **Résidus de scaffold — corrigés.** Les 49 primitives UI non atteintes, les providers toast/query/tooltip sans usage, les hooks morts et les dépendances runtime associées ont été supprimés. Le runtime conserve uniquement React, le routeur, Lucide et les packages nécessaires au build.
-7. **Headers HTTP — non corrigeable depuis GitHub Pages.** La CSP/referrer meta reste dans l’artifact, mais le DAST confirme qu’un serveur de preview ne renvoie pas les headers HTTP. La limitation est documentée comme `S18 UNKNOWN`, sans prétendre qu’une balise meta équivaut à un header.
-8. **Google Maps — comportement rétabli à la demande du propriétaire.** L’iframe est de nouveau chargée automatiquement lorsque la section est rendue. Le choix est documenté dans les mentions légales ; le risque de transmission au tiers reste explicitement signalé.
+6. **SEO/GEO et passage de domaine — corrigés.** `site.config.json` est la seule source de l'URL publique ; Vite déduit le base path et `prepare-pages` régénère canonical, JSON-LD, `robots.txt`, sitemap et `llms.txt`. La structure locale décrit uniquement les informations visibles et vérifiées sur le site.
+7. **Résidus de scaffold — corrigés.** Les 49 primitives UI non atteintes, les providers toast/query/tooltip sans usage, les hooks morts et les dépendances runtime associées ont été supprimés. Le runtime conserve uniquement React, le routeur, Lucide et les packages nécessaires au build.
+8. **Headers HTTP — non corrigeable depuis GitHub Pages.** La CSP/referrer meta reste dans l’artifact, mais le DAST confirme qu’un serveur de preview ne renvoie pas les headers HTTP. La limitation est documentée comme `S18 UNKNOWN`, sans prétendre qu’une balise meta équivaut à un header.
+9. **Google Maps — comportement rétabli à la demande du propriétaire.** L’iframe est de nouveau chargée automatiquement lorsque la section est rendue. Le choix est documenté dans les mentions légales ; le risque de transmission au tiers reste explicitement signalé.
 
 ## 7. Points encore dépendants d’une information ou d’une décision propriétaire
 
 - Provenance/licence de `hero-premium.jpg` : fournir la source ou confirmer le statut d’illustration autorisée avant publication définitive.
 - Enrichissement des fiches réalisation : fournir uniquement les lieux, matériaux, durée, budget et retours client réellement validés.
+- Référencement externe : vérifier le domaine dans Search Console, soumettre le sitemap et harmoniser la fiche Google Business Profile avec le nom, l'adresse et le téléphone publiés.
 - Headers HTTP : vérifier l’URL GitHub Pages après publication ; une migration/proxy sera nécessaire si ces headers sont obligatoires.
 - Une refonte artistique plus radicale reste possible, mais elle n’est plus nécessaire pour les corrections techniques et anti-template traitées dans ce lot.
 
@@ -131,12 +139,13 @@ Ces points sont des décisions de refonte, pas des corrections techniques à mé
 
 ## 8. Actions encore requises avant le go production définitif
 
-1. Autoriser puis effectuer le commit/push vers `main` ; cette action n’a pas été exécutée.
-2. Attendre le déploiement GitHub Pages et vérifier l’accueil, `/mentions-legales`, le fallback 404, les assets, les metadata et les URLs finales.
-3. Relever les headers HTTP réels après publication et accepter/documenter la limite GitHub Pages si aucun mécanisme de configuration n’est disponible.
-4. Décider/documenter la provenance de `hero-premium.jpg` et fournir uniquement les informations chantier réellement disponibles avant d’enrichir davantage les cartes.
-5. Vérifier les headers HTTP publics après publication ; si GitHub Pages ne les expose pas, accepter la limite ou migrer vers un hébergement/proxy contrôlé.
-6. En option, installer Semgrep/Trivy pour une couverture supplémentaire.
+1. Modifier uniquement `site.config.json` avec le domaine public final lorsque la migration aura lieu.
+2. Autoriser puis effectuer le commit/push vers `main` ; cette action n’a pas été exécutée.
+3. Attendre le déploiement GitHub Pages et vérifier l’accueil, `/mentions-legales`, le fallback 404, les assets, les metadata et les URLs finales.
+4. Enregistrer le domaine dans Google Search Console, soumettre le sitemap et vérifier la fiche Google Business Profile.
+5. Relever les headers HTTP réels après publication et accepter/documenter la limite GitHub Pages si aucun mécanisme de configuration n’est disponible.
+6. Décider/documenter la provenance de `hero-premium.jpg` et fournir uniquement les informations chantier réellement disponibles avant d’enrichir davantage les cartes.
+7. En option, installer Semgrep/Trivy pour une couverture supplémentaire.
 
 La version locale est donc **GO technique conditionnel** et **GO pour revue humaine du lot de corrections**. Elle n’est pas encore **GO production** pour le dernier état local tant que le push et le retest public ne sont pas réalisés. Le seul point de crédibilité bloquant côté contenu est la provenance de l’image hero ; les métriques de projet sont correctement laissées absentes tant qu’elles ne sont pas validées.
 
@@ -219,10 +228,10 @@ La version locale est donc **GO technique conditionnel** et **GO pour revue huma
 | L02 | Primary CTA visible early | PASS | CTA projet et téléphone visibles dans le hero. |
 | L03 | Unique page titles | PASS | Accueil, légal et 404 ont des titles distincts. |
 | L04 | Unique page descriptions | PASS | Descriptions par route et fallback dédiées. |
-| L05 | Social sharing image/metadata | PASS | `og:title`, `og:description`, `og:url`, `og:image`, alt/type/dimensions et Twitter image sont présents ; l’image sociale est livrée dans `public/og-image.jpg`. |
+| L05 | Social sharing image/metadata | PASS | `og:title`, `og:description`, `og:url`, `og:image`, alt/type/dimensions, Twitter title/description/image sont présents ; l’image sociale est livrée dans `public/og-image.jpg`. |
 | L06 | Complete favicon/app-icon baseline | PASS | Favicon livré ; aucune PWA ou app installable n’est annoncée. |
-| L07 | robots.txt policy | PASS | `public/robots.txt` aligné avec le base path. |
-| L08 | Sitemap | PASS | Sitemap présent avec accueil et route légale réellement générée. |
+| L07 | robots.txt policy | PASS | `robots.txt` est régénéré au build depuis l’URL de `site.config.json` et référence le sitemap final. |
+| L08 | Sitemap | PASS | Sitemap XML régénéré et contrôlé avec accueil et route légale uniquement ; aucune route 404. |
 | L09 | Alternative text for meaningful images | PASS | Alt non vides sur hero/logo/réalisations et dimensions déclarées. |
 | L10 | Real mobile breakpoints tested | PASS | 320, 375 et 768 contrôlés à nouveau ; 1024 et 1440 couverts par la preuve locale précédente, sans débordement horizontal de page. |
 | L11 | Mobile primary action remains reachable | PASS | CTA, téléphone et contact accessibles à 375 px. |

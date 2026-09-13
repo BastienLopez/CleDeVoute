@@ -43,6 +43,10 @@ npm run preview
 
 Avec la configuration GitHub Pages actuelle, le build est servi sous `/CleDeVoute/`.
 
+L'URL canonique du site et le chemin de base de production sont centralisés dans `site.config.json`. Lors du passage sur le domaine final, il suffit de remplacer `siteUrl` par l'URL publique finale : le build déduit automatiquement le chemin des assets, puis régénère les métadonnées, `robots.txt`, le sitemap et `llms.txt`.
+
+Les rapports de contrôle sont conservés dans `anti-vibecode-audit.md` et `seo-geo-audit.md`.
+
 ## Publication
 
 Le workflow `.github/workflows/gh-pages.yml` installe avec `npm ci`, exécute les contrôles, construit `dist`, prépare les routes statiques puis publie l’artefact GitHub Pages. Aucun secret applicatif n’est requis par le site statique.

@@ -43,6 +43,15 @@ Semgrep et Trivy ne sont pas installés dans l'environnement utilisé. Le prefli
 - **Détails des réalisations :** fournir uniquement lorsque disponibles la durée, le budget et l'avis client pour chaque projet concerné. Les fiches affichent déjà les informations vérifiables et laissent ces champs absents lorsqu'ils ne sont pas validés.
 - **Carte Google Maps :** le chargement automatique est rétabli comme demandé. Confirmer, si nécessaire avec le cadre juridique applicable au site, si un consentement préalable ou une solution de remplacement doit être ajouté pour ce service tiers.
 
+## 5. Référencement externe après publication
+
+**Statut :** action propriétaire, non automatisable depuis le dépôt.
+
+- Remplacer uniquement `siteUrl` dans `site.config.json` par le domaine public final avant le passage en production.
+- Vérifier le domaine dans Google Search Console puis soumettre l'URL finale de `sitemap.xml`.
+- Vérifier ou créer la fiche Google Business Profile avec le même nom, la même adresse et le même téléphone que le site.
+- Demander l'inspection de l'accueil et de `/mentions-legales` après le déploiement ; ne pas considérer le sitemap comme une garantie d'indexation.
+
 ## Règle de passage
 
 Ces points restent à traiter avant de déclarer la publication de production entièrement vérifiée et l'audit éditorial totalement clôturé. Ils ne bloquent plus la validation locale de P0 à P6. Aucun autre élément fourni dans le questionnaire propriétaire ne reste bloquant pour P0 à P6.
