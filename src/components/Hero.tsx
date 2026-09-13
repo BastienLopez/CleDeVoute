@@ -1,4 +1,4 @@
-import { ArrowDownRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowDownRight, Mail, MapPin } from "lucide-react";
 import heroImage from "@/assets/hero-premium.jpg";
 import { company } from "@/data/company";
 import { useLanguage } from "@/lib/language";
@@ -46,21 +46,20 @@ const Hero = () => {
             <div className="mt-9 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center md:flex-nowrap">
               <a
                 href="#realisations"
-                className="inline-flex h-20 min-h-20 w-full items-center justify-center gap-3 rounded-md bg-secondary px-6 text-base font-semibold text-white shadow-sm transition-colors hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary/25 sm:w-auto"
+                className="relative inline-flex h-20 min-h-20 w-full items-center justify-center rounded-md bg-secondary px-12 text-base font-semibold text-white shadow-sm transition-colors hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary/25 sm:w-auto"
               >
-                {isEnglish ? "See the projects" : "Voir les réalisations"}
-                <ArrowDownRight className="h-5 w-5" aria-hidden="true" />
+                <span className="text-center">{isEnglish ? "See the projects" : "Voir les réalisations"}</span>
+                <ArrowDownRight className="absolute right-6 h-5 w-5" aria-hidden="true" />
               </a>
               <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
                 <a
                   href={company.phoneHref}
-                  className="inline-flex h-20 min-h-20 w-full flex-col items-center justify-center gap-1 rounded-md border border-primary/25 bg-background px-6 py-2 text-center text-base font-semibold text-primary transition-colors hover:border-secondary hover:text-secondary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary/20 sm:w-auto"
+                  className="relative inline-flex h-20 min-h-20 w-full flex-col items-center justify-center gap-1 rounded-md border border-primary/25 bg-background px-6 py-2 text-center text-base font-semibold text-primary transition-colors hover:border-secondary hover:text-secondary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary/20 sm:w-auto"
                 >
-                  <span className="flex w-full items-center justify-center gap-3 text-center">
-                    <Phone className="h-5 w-5" aria-hidden="true" />
-                    <span>{isEnglish ? "Call the company" : "Appeler l'entreprise"}</span>
+                  <span className="relative flex w-full items-center justify-center text-center">
+                    <span className="text-center">{isEnglish ? "Call the company" : "Appeler l'entreprise"}</span>
                   </span>
-                  <span className="text-sm font-medium text-primary/60">{company.phoneDisplay}</span>
+                  <span className="w-full text-center text-sm font-medium text-primary/60">{company.phoneDisplay}</span>
                 </a>
                 <div className="hidden h-20 items-center justify-center rounded-md border border-primary/10 bg-background px-4 shadow-sm md:flex">
                   <img src={logoSrc} alt="La clé de voûte" width={551} height={164} className="h-14 w-auto" />
@@ -78,24 +77,6 @@ const Hero = () => {
               <span className="break-all text-[0.8rem] text-primary/65 sm:text-sm">{company.email}</span>
             </a>
 
-            <dl className="mt-12 grid max-w-2xl grid-cols-2 gap-x-6 gap-y-6 border-t border-primary/15 pt-7 sm:grid-cols-4 sm:gap-x-5">
-              <div>
-                <dt className="font-display text-2xl font-bold text-primary-dark sm:text-3xl">20+</dt>
-                <dd className="mt-1 text-sm leading-snug text-muted-foreground">{isEnglish ? "years of expertise" : "ans d'expertise"}</dd>
-              </div>
-              <div>
-                <dt className="font-display text-2xl font-bold text-primary-dark sm:text-3xl">500+</dt>
-                <dd className="mt-1 text-sm leading-snug text-muted-foreground">{isEnglish ? "projects completed" : "projets réalisés"}</dd>
-              </div>
-              <div>
-                <dt className="font-display text-lg font-bold leading-tight text-primary-dark sm:text-xl">{isEnglish ? "Master craftsman" : "Brevet de maîtrise"}</dt>
-                <dd className="mt-1 text-sm leading-snug text-muted-foreground">{isEnglish ? "qualified mason" : "artisan maçon qualifié"}</dd>
-              </div>
-              <div>
-                <dt className="font-display text-lg font-bold leading-tight text-primary-dark sm:text-xl">Tour de France</dt>
-                <dd className="mt-1 text-sm leading-snug text-muted-foreground">{isEnglish ? "enriched expertise" : "savoir-faire enrichi"}</dd>
-              </div>
-            </dl>
           </div>
 
           <figure className="relative min-w-0 overflow-hidden rounded-[1.5rem] border border-primary/10 bg-primary-dark shadow-xl">

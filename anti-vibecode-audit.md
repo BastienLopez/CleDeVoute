@@ -1,40 +1,42 @@
 # Audit anti-vibecode et readiness — Clé de Voûte
 
-> Audit de l’état courant — 10 septembre 2026
+> Audit complet de l’état courant — 13 septembre 2026
 >
-> Périmètre : checkout `C:\Users\UTILISATEUR\Documents\GitHub\CleDeVoute`, branche `main`, modifications non commitées présentes dans le worktree. La phase 7 (refonte UI/UX) reste hors périmètre.
+> Périmètre : checkout `C:\Users\UTILISATEUR\Documents\GitHub\CleDeVoute`, branche `main`, modifications non commitées présentes dans le worktree. L’audit couvre P0–P6, les dernières retouches de `Hero`/`Footer`, et les signaux anti-IA visibles avant la refonte P7. Aucun redesign n’est appliqué pendant cet audit.
 
 ## 1. Verdict exécutif
 
-La base P0–P6 est fonctionnelle et prête pour une revue de diff puis un commit/push déclenché par le propriétaire : installation reproductible, dépendances cohérentes, build, typecheck, lint sans erreur, contrats de publication, routes locales, sécurité npm, DAST local, interactions principales et responsive validés.
+La base P0–P6 est fonctionnelle : installation reproductible, dépendances cohérentes, build, typecheck, lint sans erreur, contrats de publication, routes locales, sécurité npm, interactions principales et responsive validés. Les dernières retouches demandées dans le hero et le footer passent également les contrôles locaux.
 
-Le verdict n’est pas « production déjà validée » : aucun commit, push ni déploiement n’a été effectué. Le site public existant est encore l’ancienne publication : l’accueil répond 200, mais `/mentions-legales` répond 404. Les headers `Content-Security-Policy`, `Referrer-Policy` et `X-Content-Type-Options` ne sont pas observés sur l’hébergement public actuel. Ces deux vérifications doivent être rejouées après publication de l’état courant.
+Le verdict n’est pas « refonte terminée » et la production n’est pas validée pour le code local : aucun commit, push ni déploiement n’a été effectué depuis ce checkout. La lecture publique actuelle répond 200 sur l’accueil et `/mentions-legales`, mais les headers `Content-Security-Policy`, `Referrer-Policy` et `X-Content-Type-Options` ne sont pas observés. Le principal reste à traiter est désormais P7 : réduire l’effet template, rendre les preuves métier plus concrètes et documenter la provenance de l’image hero.
 
 ### Comptage des 94 contrôles
 
 | Statut | Nombre |
 |---|---:|
-| PASS | 46 |
-| JUSTIFIED | 20 |
+| PASS | 49 |
+| JUSTIFIED | 17 |
 | N/A | 27 |
 | UNKNOWN | 1 |
 | FAIL | 0 |
 | **Total** | **94** |
 
-`UNKNOWN` concerne uniquement `S18` (headers de sécurité de l’hébergement). Les choix visuels et éditoriaux encore génériques sont explicitement maintenus pour la phase 7 ; ils ne constituent pas un défaut accidentel de P0–P6.
+`UNKNOWN` concerne uniquement `S18` (headers de sécurité de l’hébergement). Les choix visuels et éditoriaux encore génériques sont documentés comme dette P7 : ils ne cassent pas le fonctionnement, mais ils expliquent pourquoi le site peut encore donner une impression de site généré.
 
 ## 2. Périmètre et niveau de preuve
 
 - Audit statique du diff, de la configuration, des scripts, des dépendances, du build et des assets.
 - Reproduction locale de la chaîne CI/CD jusqu’à l’artifact `dist`.
 - Parcours navigateur sur l’accueil, les mentions légales, une route inconnue, FR/EN, menu, CTA, galerie, fermeture Échap et restauration du focus.
-- Responsive contrôlé aux largeurs 320, 375, 768, 1024 et 1440 px, sans débordement horizontal.
+- Responsive contrôlé aux largeurs 320, 375 et 768 px pendant cet audit, avec les contrôles 1024 et 1440 px repris de la preuve locale précédente ; aucun débordement horizontal de page n’a été observé, le débordement interne du carrousel étant intentionnel.
 - Audit sécurité white-box et DAST passif limité à localhost ; aucune action intrusive.
 - Vérification en lecture seule de l’URL publique existante. Aucun accès aux paramètres GitHub, DNS, Search Console ou compte propriétaire.
 
 Les statuts signifient : `PASS` preuve directe ; `JUSTIFIED` choix volontaire et borné ; `N/A` contrôle non applicable ; `UNKNOWN` preuve externe ou décision encore manquante ; `FAIL` écart non accepté.
 
-## 3. Corrections appliquées pendant cet audit
+## 3. État du patch actuellement audité
+
+Aucun nouveau correctif applicatif n’a été ajouté pendant cet audit. Les deux fichiers déjà modifiés dans le worktree ont été conservés puis revalidés : suppression de l’icône téléphone du hero, centrage des CTA et réduction/simplification du footer.
 
 | Correction | Fichier(s) | Validation |
 |---|---|---|
@@ -58,7 +60,7 @@ Les statuts signifient : `PASS` preuve directe ; `JUSTIFIED` choix volontaire et
 | `npm run lint` | PASS — 0 erreur, 7 warnings `react-refresh/only-export-components` dans le scaffold UI |
 | `npm run typecheck` | PASS — `tsc -b` |
 | `npm run check:assets` | PASS — 11 images raster, dimensions lisibles, chaque fichier sous 512 Ko |
-| `npm run build` | PASS — Vite 8.2.2, 1 684 modules transformés |
+| `npm run build` | PASS — Vite 8.2.2, 1 682 modules transformés |
 | `npm run prepare-pages` puis `npm test` | PASS — accueil, mentions légales et 404 générés/contrôlés |
 | `git diff --check` | PASS — avertissements CRLF uniquement |
 | YAML du workflow | PASS — parsing Python, jobs `build` et `deploy`, déclencheurs `push`/`workflow_dispatch` |
@@ -75,18 +77,18 @@ Le workflow bloque bien sur `npm ci`, `npm audit`, lint, typecheck, assets, buil
 - Galerie : filtres, ouverture du dialogue, verrouillage du scroll, fermeture Échap et restitution du focus au bouton d’origine.
 - CTA : le bouton amène effectivement la section contact dans la fenêtre.
 - Console : aucune erreur ni alerte relevée après le parcours.
-- Responsive : 320/375/768/1024/1440 px, `scrollWidth` égal à la largeur client à chaque contrôle ; dimensions HTML présentes sur les images.
+- Responsive courant : 320/375/768 px, `scrollWidth` égal à la largeur de la page ; les contrôles 1024/1440 px restent couverts par la preuve locale précédente. Le carrousel conserve un débordement horizontal interne volontaire et contrôlé.
 
 ### État public vérifié en lecture seule
 
 | URL | Réponse observée |
 |---|---:|
 | `https://bastienlopez.github.io/CleDeVoute/` | 200 |
-| `https://bastienlopez.github.io/CleDeVoute/mentions-legales` | 404 — ancienne publication |
+| `https://bastienlopez.github.io/CleDeVoute/mentions-legales` | 200 |
 | `https://bastienlopez.github.io/CleDeVoute/route-inconnue-audit` | 404 |
 | HTTP → HTTPS | 301 vers HTTPS |
 
-Sur l’accueil public actuel, `Strict-Transport-Security` est présent ; les headers CSP, referrer et `X-Content-Type-Options` ne le sont pas. Les balises meta du nouvel artifact sont un filet de sécurité côté document, pas l’équivalent d’un header serveur.
+Sur l’accueil public actuel, `Strict-Transport-Security` est présent ; les headers CSP, referrer et `X-Content-Type-Options` ne le sont pas. Les balises meta du nouvel artifact sont un filet de sécurité côté document, pas l’équivalent d’un header serveur. Cette lecture publique confirme les routes, mais ne prouve pas que le dernier état local a été publié.
 
 ## 5. Sécurité
 
@@ -99,25 +101,38 @@ Findings restants :
 
 Semgrep et Trivy ne sont pas installés dans l’environnement. Ce manque de couverture est documenté dans `manque_phase.md` et ne doit pas être confondu avec un finding confirmé.
 
-## 6. Points volontairement différés à la phase 7
+## 6. Ce qui reste visible comme “IA-like” ou trop générique
+
+Ces points ne sont pas des bugs de fonctionnement. Ils sont toutefois les écarts les plus visibles par rapport à un site de maçonnerie réellement incarné :
+
+1. **Hero trop générique — priorité P2.** `hero-premium.jpg` est propre techniquement, mais son image de maçon devant un mur de pierre ressemble à une image stock ou générée et n’est pas contextualisée par le chantier. Aucun crédit, source ou élément de provenance n’est présent dans le dépôt. L’audit ne conclut pas qu’elle est générée ; il conclut que son authenticité n’est pas démontrable depuis le projet.
+2. **Grammaire visuelle répétitive — priorité P2.** Eyebrows en capitales, grands titres Playfair, cartes à rayons/ombres similaires, pastilles de filtre, blocs numérotés, listes de trois à cinq éléments et carrousel automatique s’additionnent. Chaque choix est défendable isolément ; leur accumulation produit un rendu de template.
+3. **Copy abstrait — priorité P2.** Des formulations comme « savoir-faire », « relation de confiance », « l’objectif est simple », « à votre rythme », « large variété » ou « de la structure aux finitions » sonnent comme du remplissage marketing générique. Elles ne sont pas fausses, mais elles manquent de matière, de lieu, de technique et de résultat observable.
+4. **Réalisations peu documentées — priorité P2.** Les photos sont la meilleure preuve anti-IA du site, mais les cartes donnent surtout une catégorie et un titre. Sans commune, contexte, matériau, difficulté ou résultat — lorsque ces informations sont disponibles — la galerie ressemble davantage à un composant de portfolio qu’à un historique de chantiers.
+5. **Prévisualisation sociale incomplète — priorité P2 faible.** `og:title`, `og:description` et `og:url` existent, mais aucune `og:image` n’est fournie. Le propriétaire a choisi de privilégier les métadonnées texte ; c’est un choix accepté, mais les partages seront moins maîtrisés.
+6. **Résidus de scaffold — priorité P3.** Le dépôt contient 49 primitives dans `src/components/ui` et un ensemble de dépendances Radix/shadcn dont une partie n’est pas atteinte par le site. Cela n’empêche pas le rendu, mais entretient l’impression de base générée et augmente la maintenance.
+
+## 7. Points volontairement différés à la phase 7
 
 - Architecture de page, hero, rythme des sections et densité des cartes.
 - Direction artistique, palette, typographies et hiérarchie visuelle.
 - Remplacement du carrousel par une galerie éditoriale de projets documentés.
-- Réduction des formulations génériques et éventuelle restructuration des preuves métier.
+- Réduction des formulations génériques et restructuration des preuves métier sans inventer de faits.
+- Traitement de l’image hero : conserver après preuve de provenance, la remplacer par une photo de chantier autorisée, ou assumer explicitement son statut d’illustration.
 
 Ces points sont des décisions de refonte, pas des corrections techniques à mélanger dans P0–P6.
 
-## 7. Actions encore requises avant le go production définitif
+## 8. Actions encore requises avant le go production définitif
 
 1. Autoriser puis effectuer le commit/push vers `main` ; cette action n’a pas été exécutée.
 2. Attendre le déploiement GitHub Pages et vérifier l’accueil, `/mentions-legales`, le fallback 404, les assets, les metadata et les URLs finales.
 3. Relever les headers HTTP réels après publication et accepter/documenter la limite GitHub Pages si aucun mécanisme de configuration n’est disponible.
-4. En option, installer Semgrep/Trivy pour une couverture supplémentaire.
+4. Pour P7, décider de la provenance de `hero-premium.jpg` et fournir uniquement les informations chantier réellement disponibles avant d’enrichir les cartes.
+5. En option, installer Semgrep/Trivy pour une couverture supplémentaire.
 
-La version locale est donc **GO technique conditionnel** ; la production est **NON VALIDÉE tant que le push et le retest public ne sont pas réalisés**.
+La version locale est donc **GO technique conditionnel** ; elle n’est pas encore **GO anti-IA/design**. La production est **NON VALIDÉE pour le dernier état local tant que le push et le retest public ne sont pas réalisés**.
 
-## 8. Matrice complète — 94 contrôles
+## 9. Matrice complète — 94 contrôles
 
 ### A. Writing and copy — W01 à W10
 
@@ -140,7 +155,7 @@ La version locale est donc **GO technique conditionnel** ; la production est **N
 |---|---|---|---|
 | P01 | Deployment subdomain left as identity | JUSTIFIED | GitHub Pages `/CleDeVoute/` est la cible explicitement retenue ; aucun domaine inventé. |
 | P02 | Default purple/blue hero gradient | PASS | Overlay navy/orange cohérent avec la palette ; pas de gradient violet/bleu par défaut. |
-| P03 | Obviously synthetic or defective imagery | PASS | Photos inspectées, asset hero chargé et réalisations lisibles ; droits confirmés par le propriétaire. |
+| P03 | Obviously synthetic or defective imagery | PASS | Aucun défaut ou artefact évident sur les photos inspectées ; le propriétaire confirme l’autorisation d’usage. La provenance détaillée du hero n’est toutefois pas documentée dans le dépôt, ce qui reste un risque de crédibilité distinct. |
 | P04 | Fabricated testimonials | N/A | Aucun témoignage ou avis publié. |
 | P05 | Dead or placeholder controls | PASS | Menu, langue, CTA, filtres, flèches et galerie fonctionnent au navigateur. |
 | P06 | Scroll-reveal animation everywhere | JUSTIFIED | Animations limitées au hero/carrousel et désactivées ou réduites pour `prefers-reduced-motion`. |
@@ -169,7 +184,7 @@ La version locale est donc **GO technique conditionnel** ; la production est **N
 | D04 | Section-by-section rainbow palette | PASS | Palette stable navy, orange, pierre et blanc. |
 | D05 | Shadow on nearly every object | JUSTIFIED | Ombres concentrées sur cartes et contrôles ; dette esthétique différée à P7. |
 | D06 | Default three-feature-card row | JUSTIFIED | Les services ont trois puces par carte ; structure conservée jusqu’à P7. |
-| D07 | Glass/blur effect as a blanket style | JUSTIFIED | Blur limité à l’en-tête et aux CTA sur hero ; usage contextuel. |
+| D07 | Glass/blur effect as a blanket style | PASS | Aucun `backdrop-blur` ni système glassmorphism appliqué globalement ; les overlays d’image restent opaques/transparents mais contextuels. |
 | D08 | Generator-default font selection | JUSTIFIED | Inter/Playfair sont cohérentes avec la marque ; réévaluation stylistique en P7. |
 | D09 | Decorative full-width accent band | JUSTIFIED | Transitions de sections présentes mais liées au rythme existant ; pas de refonte avant P7. |
 | D10 | Bento layout by reflex | N/A | Aucun bento layout. |
@@ -183,8 +198,8 @@ La version locale est donc **GO technique conditionnel** ; la production est **N
 | D18 | Background glow/orb decoration | PASS | Aucun glow/orb décoratif. |
 | D19 | Decorative dot-grid background | PASS | Aucun dot-grid. |
 | D20 | Sparkle icon as universal AI symbol | PASS | Aucun sparkle utilisé comme symbole IA. |
-| D21 | Bouncing scroll arrows | JUSTIFIED | Indicateur de scroll unique, décoratif et neutralisé par reduced motion. |
-| D22 | Hover animation on non-interactive elements | JUSTIFIED | Transitions existantes bornées au hero ; nettoyage visuel prévu en P7. |
+| D21 | Bouncing scroll arrows | PASS | La flèche du CTA est statique ; aucun `animate-bounce` ou mouvement de guidage permanent n’est utilisé. |
+| D22 | Hover animation on non-interactive elements | PASS | Les transforms et changements d’image repérés sont attachés aux boutons/cartes interactifs du carrousel ou aux liens. |
 | D23 | Neon-on-dark default styling | PASS | Contraste navy/orange sobre, sans néon. |
 | D24 | Generic pastel-everything styling | PASS | Aucun système pastel générique. |
 
@@ -201,7 +216,7 @@ La version locale est donc **GO technique conditionnel** ; la production est **N
 | L07 | robots.txt policy | PASS | `public/robots.txt` aligné avec le base path. |
 | L08 | Sitemap | PASS | Sitemap présent avec accueil et route légale réellement générée. |
 | L09 | Alternative text for meaningful images | PASS | Alt non vides sur hero/logo/réalisations et dimensions déclarées. |
-| L10 | Real mobile breakpoints tested | PASS | 320, 375, 768, 1024 et 1440 contrôlés dans le navigateur. |
+| L10 | Real mobile breakpoints tested | PASS | 320, 375 et 768 contrôlés à nouveau ; 1024 et 1440 couverts par la preuve locale précédente, sans débordement horizontal de page. |
 | L11 | Mobile primary action remains reachable | PASS | CTA, téléphone et contact accessibles à 375 px. |
 | L12 | Loading state for async actions | N/A | Aucun envoi ou traitement asynchrone visible. |
 | L13 | Field-specific form errors | N/A | Pas de formulaire ; contact direct honnête. |
@@ -238,6 +253,6 @@ La version locale est donc **GO technique conditionnel** ; la production est **N
 | S19 | HTTPS enforced in production | PASS | HTTP public redirige 301 vers HTTPS ; HSTS observé sur HTTPS. |
 | S20 | Dependency vulnerability hygiene | PASS | `npm ci`, `npm ls` et `npm audit` passent sans vulnérabilité. |
 
-## 9. Décision finale
+## 10. Décision finale
 
-**État du code local : GO conditionnel pour push**, après revue humaine du diff et autorisation du propriétaire. **État production : NO-GO de validation finale**, uniquement parce que le push/déploiement et le retest HTTP public n’ont pas eu lieu. Ne pas commencer P7 avant la clôture ou l’acceptation explicite de ces preuves externes.
+**État du code local : GO technique conditionnel pour push**, après revue humaine du diff et autorisation du propriétaire. **État production : NO-GO de validation finale** pour le dernier état local, uniquement parce que le push/déploiement et le retest HTTP public n’ont pas eu lieu. **État anti-IA/design : P7 reste nécessaire** pour traiter les six points listés en section 6 ; ce n’est pas un problème de fonctionnement P0–P6.
