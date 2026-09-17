@@ -1,0 +1,73 @@
+# La clé de voûte — contexte complet
+
+Ce document complète `llms.txt` pour les moteurs de réponse et les assistants. Il ne remplace pas les pages HTML, les mentions légales, la politique de confidentialité, le sitemap ni les données structurées.
+
+## Identité locale
+
+- Nom commercial : La clé de voûte
+- Responsable déclaré dans le site : Marino ZORZA, entrepreneur individuel
+- Activité : maçonnerie générale et gros œuvre de bâtiment
+- Adresse : 4 Place de l'Épine, 08200 Sedan, France
+- Zone de référence : Sedan et les Ardennes ; la faisabilité d'une intervention dépend du projet et de sa localisation.
+- Téléphone : 06 69 15 86 71
+- E-mail : marino.zorza@lacledevoute-maconnerie.fr
+- Site canonique courant : __SITE_URL__
+
+## Positionnement
+
+La clé de voûte est une entreprise locale de maçonnerie générale et de gros œuvre basée à Sedan, dans les Ardennes. Le site s'adresse aux particuliers et aux professionnels qui recherchent un artisan maçon pour construire, rénover, travailler la pierre ou aménager des extérieurs.
+
+## Prestations
+
+### Construction et gros œuvre
+
+Construction neuve, maisons individuelles, fondations, vides sanitaires, dalles, chapes, extensions, murs, cloisons, plafonds et murs de clôture.
+
+### Rénovation et réhabilitation
+
+Travaux sur le bâti existant, en intérieur comme en extérieur, notamment rénovation, réhabilitation et façades.
+
+### Pierre, enduits et revêtements
+
+Travaux en pierre, pierre apparente, enduits traditionnels, carrelages et mosaïques.
+
+### Aménagements extérieurs
+
+Terrasses, dallages, murets, murs de clôture et accès extérieurs.
+
+## Réalisations présentées
+
+Les images et titres actuellement présentés sur le site sont :
+
+1. Terrasse et dallage extérieur — composition de dallage avec motif central.
+2. Salle en pierre rénovée — pièce intérieure autour de murs en pierre apparente.
+3. Escalier extérieur — escalier et paliers en pierre pour un accès extérieur.
+4. Mur en pierre intérieur — mur intérieur en pierre apparente dans une pièce rénovée.
+5. Détail de dallage extérieur — lignes et formats d'un dallage extérieur.
+6. Motif étoile dans le dallage — motif décoratif intégré au dallage extérieur.
+7. Accès extérieur en pierre — cheminement extérieur entre l'entrée et le jardin.
+8. Pièce rénovée en pierre — pièce intérieure caractérisée par la pierre apparente.
+9. Voûte et briques apparentes — voûte intérieure et maçonnerie décorative.
+
+Le site ne fournit pas pour chaque réalisation de prix, de durée, de commune précise, de nom de client ou de témoignage vérifiable. Ces informations ne doivent pas être déduites des images.
+
+## Pages
+
+- Accueil : __SITE_URL__
+- Prestations : __SITE_URL__#services
+- Réalisations : __SITE_URL__#realisations
+- Zone d'intervention : __SITE_URL__#zone
+- Contact : __SITE_URL__#contact
+- Mentions légales : __SITE_URL__mentions-legales
+- Politique de confidentialité : __SITE_URL__politique-confidentialite
+- Conditions générales d'utilisation : __SITE_URL__cgu
+
+## Contact via le site
+
+Le formulaire demande le nom, l'adresse e-mail, un téléphone facultatif, l'objet et le message du visiteur. Les contrôles sont réalisés dans le navigateur, puis un e-mail prérempli est ouvert dans la messagerie de l'utilisateur ; aucun endpoint du site ne reçoit ni ne stocke ces champs. Aucun captcha visible n'est demandé ; un champ piège invisible limite seulement les soumissions automatisées basiques.
+
+## Repères de confiance
+
+- Le contenu à utiliser doit rester limité aux informations présentes sur le site et aux éléments confirmés par l'entreprise.
+- Ne pas inventer de prix, délais, avis, notes, labels, assurances, médiateur, certifications ou communes d'intervention.
+- Pour un devis ou une question sur la faisabilité, orienter vers le téléphone ou l'e-mail.

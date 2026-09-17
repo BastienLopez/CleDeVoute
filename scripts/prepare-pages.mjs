@@ -12,8 +12,8 @@ const siteToken = "__SITE_URL__";
 const siteConfig = JSON.parse(await readFile(siteConfigPath, "utf8"));
 const configuredSiteUrl = process.env.VITE_SITE_URL || siteConfig.siteUrl;
 const parsedSiteUrl = new URL(configuredSiteUrl);
-if (!/^https?:$/.test(parsedSiteUrl.protocol)) {
-  throw new Error("[prepare-pages] siteUrl doit utiliser HTTP ou HTTPS.");
+if (parsedSiteUrl.protocol !== "https:") {
+  throw new Error("[prepare-pages] siteUrl doit utiliser HTTPS.");
 }
 const siteBaseUrl = `${parsedSiteUrl.origin}${parsedSiteUrl.pathname.endsWith("/") ? parsedSiteUrl.pathname : `${parsedSiteUrl.pathname}/`}`;
 
@@ -25,6 +25,8 @@ try {
 }
 
 await mkdir(path.join(distDirectory, "mentions-legales"), { recursive: true });
+await mkdir(path.join(distDirectory, "politique-confidentialite"), { recursive: true });
+await mkdir(path.join(distDirectory, "cgu"), { recursive: true });
 
 function hydrateSiteUrls(content, label) {
   if (!content.includes(siteToken)) {
@@ -102,6 +104,48 @@ const legalHtml = setStructuredData(setMetadata(homeHtml, {
   inLanguage: "fr-FR",
 });
 
+const privacyUrl = new URL("politique-confidentialite", siteBaseUrl).href;
+const privacyHtml = setStructuredData(setMetadata(homeHtml, {
+  title: "Politique de confidentialité | La clé de voûte",
+  description: "Politique de confidentialité de La clé de voûte : données, contacts, stockage local, Google Maps et droits des personnes.",
+  robots: "index, follow",
+  canonical: privacyUrl,
+  ogTitle: "Politique de confidentialité | La clé de voûte",
+  ogDescription: "Informations sur les données personnelles, les contacts, le stockage local, Google Maps et les droits des personnes.",
+  ogUrl: privacyUrl,
+}), {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${privacyUrl}#webpage`,
+  url: privacyUrl,
+  name: "Politique de confidentialité | La clé de voûte",
+  description: "Politique de confidentialité de La clé de voûte : données, contacts, stockage local, Google Maps et droits des personnes.",
+  isPartOf: { "@id": `${siteBaseUrl}#website` },
+  about: { "@id": `${siteBaseUrl}#business` },
+  inLanguage: "fr-FR",
+});
+
+const termsUrl = new URL("cgu", siteBaseUrl).href;
+const termsHtml = setStructuredData(setMetadata(homeHtml, {
+  title: "Conditions générales d'utilisation | La clé de voûte",
+  description: "Conditions générales d'utilisation du site vitrine de La clé de voûte.",
+  robots: "index, follow",
+  canonical: termsUrl,
+  ogTitle: "Conditions générales d'utilisation | La clé de voûte",
+  ogDescription: "Règles de consultation et d'utilisation du site de La clé de voûte.",
+  ogUrl: termsUrl,
+}), {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${termsUrl}#webpage`,
+  url: termsUrl,
+  name: "Conditions générales d'utilisation | La clé de voûte",
+  description: "Règles de consultation et d'utilisation du site de La clé de voûte.",
+  isPartOf: { "@id": `${siteBaseUrl}#website` },
+  about: { "@id": `${siteBaseUrl}#business` },
+  inLanguage: "fr-FR",
+});
+
 let notFoundHtml = setMetadata(homeHtml, {
   title: "Page introuvable | La clé de voûte",
   description: "La page demandée n'existe pas sur le site de La clé de voûte.",
@@ -118,22 +162,23 @@ for (const [pattern, label] of [
   [/<meta name="twitter:title"[^>]*\s*\/>\s*/g, "twitter:title"],
   [/<meta name="twitter:description"[^>]*\s*\/>\s*/g, "twitter:description"],
   [/<meta name="twitter:image"[^>]*\s*\/>\s*/g, "twitter:image"],
+  [/<meta name="twitter:url"[^>]*\s*\/>\s*/g, "twitter:url"],
 ]) {
-  if (!pattern.test(notFoundHtml)) {
-    throw new Error(`[prepare-pages] Balise metadata introuvable : ${label}`);
-  }
+  pattern.lastIndex = 0;
   notFoundHtml = notFoundHtml.replace(pattern, "");
 }
 
 await writeFile(indexPath, homeHtml);
 await writeFile(path.join(distDirectory, "mentions-legales", "index.html"), legalHtml);
+await writeFile(path.join(distDirectory, "politique-confidentialite", "index.html"), privacyHtml);
+await writeFile(path.join(distDirectory, "cgu", "index.html"), termsHtml);
 await writeFile(path.join(distDirectory, "404.html"), notFoundHtml);
 
-for (const relativeFile of ["robots.txt", "sitemap.xml", "llms.txt"]) {
+for (const relativeFile of ["robots.txt", "sitemap.xml", "llms.txt", "llms-full.txt"]) {
   const filePath = path.join(distDirectory, relativeFile);
   const templatePath = path.join(repositoryRoot, "public", relativeFile);
   const fileContent = hydrateSiteUrls(await readFile(templatePath, "utf8"), `public/${relativeFile}`);
   await writeFile(filePath, fileContent);
 }
 
-console.log("[prepare-pages] Routes statiques préparées : /mentions-legales et 404.");
+console.log("[prepare-pages] Routes statiques préparées : /mentions-legales, /politique-confidentialite, /cgu et 404.");

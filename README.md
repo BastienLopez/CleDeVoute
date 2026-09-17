@@ -30,10 +30,11 @@ npm run check:assets
 npm run build
 npm run prepare-pages
 npm test
+npm run check:links
 npm audit --omit=dev --audit-level=high
 ```
 
-`npm run prepare-pages` doit être lancé après le build. Il génère la route statique des mentions légales et le fallback 404 dans `dist`.
+`npm run prepare-pages` doit être lancé après le build. Il génère les routes statiques des mentions légales, de la politique de confidentialité et des CGU, ainsi que le fallback 404 dans `dist`.
 
 ## Preview du build
 

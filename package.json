@@ -12,6 +12,7 @@
     "typecheck": "tsc -b",
     "prepare-pages": "node scripts/prepare-pages.mjs",
     "check:assets": "node scripts/check-assets.mjs",
+    "check:links": "node scripts/check-critical-links.mjs",
     "test": "node scripts/test-contracts.mjs"
   },
   "dependencies": {

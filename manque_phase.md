@@ -41,6 +41,7 @@ Semgrep et Trivy ne sont pas installés dans l'environnement utilisé. Le prefli
 
 - **Provenance de `hero-premium.jpg` :** fournir, si elle existe, la source du chantier, l'autorisation d'utilisation ou la licence de la photo. Aucune provenance ne doit être inventée.
 - **Détails des réalisations :** fournir uniquement lorsque disponibles la durée, le budget et l'avis client pour chaque projet concerné. Les fiches affichent déjà les informations vérifiables et laissent ces champs absents lorsqu'ils ne sont pas validés.
+- **Médiateur de la consommation :** fournir le nom exact du médiateur choisi et ses coordonnées (site, adresse et modalités de saisine) avant de déclarer la conformité légale complète pour les clients particuliers. Aucun nom ne doit être inventé.
 - **Carte Google Maps :** le chargement automatique est rétabli comme demandé. Confirmer, si nécessaire avec le cadre juridique applicable au site, si un consentement préalable ou une solution de remplacement doit être ajouté pour ce service tiers.
 
 ## 5. Référencement externe après publication

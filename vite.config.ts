@@ -13,6 +13,9 @@ const configuredSiteUrl = process.env.VITE_SITE_URL || siteConfig.siteUrl;
 
 const getSiteUrl = () => {
   const parsedUrl = new URL(configuredSiteUrl);
+  if (parsedUrl.protocol !== "https:") {
+    throw new Error("siteUrl doit utiliser HTTPS pour produire les URLs canoniques du site.");
+  }
   const pathname = parsedUrl.pathname.endsWith("/") ? parsedUrl.pathname : `${parsedUrl.pathname}/`;
   return `${parsedUrl.origin}${pathname}`;
 };

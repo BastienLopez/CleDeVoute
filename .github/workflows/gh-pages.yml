@@ -59,6 +59,9 @@ jobs:
       - name: Test publication contracts
         run: npm test
 
+      - name: Check internal publication links
+        run: npm run check:links
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 

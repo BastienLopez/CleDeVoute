@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="%BASE_URL%" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://www.google.com">
@@ -10,7 +11,7 @@
     <title>La clé de voûte | Maçonnerie générale et gros œuvre à Sedan</title>
     <meta name="description" content="La clé de voûte, entreprise de maçonnerie générale et gros œuvre à Sedan : construction neuve, rénovation, pierre, terrasses et travaux intérieurs ou extérieurs." />
     <meta name="author" content="La clé de voûte" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src https://www.google.com; connect-src 'self'; form-action 'self';" />
     <meta name="geo.region" content="FR-08" />
@@ -29,10 +30,12 @@
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1086" />
     <meta property="og:image:height" content="1448" />
+    <meta property="og:image:secure_url" content="__SITE_URL__og-image.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="La clé de voûte | Maçonnerie générale à Sedan" />
     <meta name="twitter:description" content="Maçonnerie générale et gros œuvre à Sedan : construction neuve, rénovation, pierre, terrasses et aménagements extérieurs." />
     <meta name="twitter:image" content="__SITE_URL__og-image.jpg" />
+    <meta name="twitter:url" content="__SITE_URL__" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -48,6 +51,13 @@
             "logo": "__SITE_URL__logo.png",
             "telephone": "+33669158671",
             "email": "marino.zorza@lacledevoute-maconnerie.fr",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer service",
+              "telephone": "+33669158671",
+              "email": "marino.zorza@lacledevoute-maconnerie.fr",
+              "availableLanguage": ["fr-FR", "en-US"]
+            },
             "identifier": {
               "@type": "PropertyValue",
               "propertyID": "SIREN",
@@ -80,6 +90,12 @@
               "Pierre, enduits et revêtements",
               "Aménagements extérieurs"
             ],
+            "knowsAbout": [
+              "Construction et gros œuvre",
+              "Rénovation et réhabilitation",
+              "Pierre, enduits et revêtements",
+              "Aménagements extérieurs"
+            ],
             "hasOfferCatalog": {
               "@type": "OfferCatalog",
               "name": "Prestations de maçonnerie",
@@ -97,6 +113,7 @@
             "@id": "__SITE_URL__#website",
             "url": "__SITE_URL__",
             "name": "La clé de voûte",
+            "description": "Entreprise de maçonnerie générale et gros œuvre basée à Sedan, dans les Ardennes.",
             "inLanguage": "fr-FR"
           },
           {
@@ -104,6 +121,7 @@
             "@id": "__SITE_URL__#webpage",
             "url": "__SITE_URL__",
             "name": "La clé de voûte | Maçonnerie générale et gros œuvre à Sedan",
+            "description": "La clé de voûte, entreprise de maçonnerie générale et gros œuvre à Sedan : construction neuve, rénovation, pierre, terrasses et travaux intérieurs ou extérieurs.",
             "isPartOf": { "@id": "__SITE_URL__#website" },
             "about": { "@id": "__SITE_URL__#business" },
             "inLanguage": "fr-FR"

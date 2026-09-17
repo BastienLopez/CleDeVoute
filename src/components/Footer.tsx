@@ -35,6 +35,10 @@ const Footer = () => {
             <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-primary-foreground/50">
               <Link to="/mentions-legales" className="underline decoration-primary-foreground/30 underline-offset-4 transition-colors hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary/30">{isEnglish ? "Legal notice" : "Mentions légales"}</Link>
               <span aria-hidden="true">-</span>
+              <Link to="/politique-confidentialite" className="underline decoration-primary-foreground/30 underline-offset-4 transition-colors hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary/30">{isEnglish ? "Privacy policy" : "Politique de confidentialité"}</Link>
+              <span aria-hidden="true">-</span>
+              <Link to="/cgu" className="underline decoration-primary-foreground/30 underline-offset-4 transition-colors hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary/30">CGU</Link>
+              <span aria-hidden="true">-</span>
               <span>© {currentYear} {company.name} — {isEnglish ? "All rights reserved" : "Tous droits réservés"}</span>
             </p>
           </div>

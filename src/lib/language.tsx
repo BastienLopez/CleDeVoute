@@ -26,6 +26,8 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem("site-language", language);
     document.documentElement.lang = language;
     const isLegalPage = pathname === "/mentions-legales";
+    const isPrivacyPage = pathname === "/politique-confidentialite";
+    const isTermsPage = pathname === "/cgu";
     const isHomePage = pathname === "/";
     const metadata = isLegalPage
       ? {
@@ -34,6 +36,20 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
           ogDescription: language === "fr" ? "Informations sur l'éditeur, l'hébergement et l'utilisation du site." : "Information about the website publisher, hosting and use of the website.",
           indexable: true,
         }
+      : isPrivacyPage
+        ? {
+            title: language === "fr" ? "Politique de confidentialité | La clé de voûte" : "Privacy policy | La clé de voûte",
+            description: language === "fr" ? "Politique de confidentialité de La clé de voûte : données, contacts, stockage local, Google Maps et droits des personnes." : "La clé de voûte privacy policy: data, contact requests, local storage, Google Maps and individual rights.",
+            ogDescription: language === "fr" ? "Informations sur les données personnelles, les contacts, le stockage local, Google Maps et les droits des personnes." : "Information about personal data, contact requests, local storage, Google Maps and individual rights.",
+            indexable: true,
+          }
+      : isTermsPage
+        ? {
+            title: language === "fr" ? "Conditions générales d'utilisation | La clé de voûte" : "Terms of use | La clé de voûte",
+            description: language === "fr" ? "Conditions générales d'utilisation du site vitrine de La clé de voûte." : "Terms of use for the La clé de voûte showcase website.",
+            ogDescription: language === "fr" ? "Règles de consultation et d'utilisation du site de La clé de voûte." : "Rules for browsing and using the La clé de voûte website.",
+            indexable: true,
+          }
       : isHomePage
         ? {
             title: language === "fr" ? "La clé de voûte | Maçonnerie générale et gros œuvre à Sedan" : "La clé de voûte | General masonry and structural work in Sedan",
@@ -50,7 +66,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
     document.title = metadata.title;
     document.querySelector('meta[name="description"]')?.setAttribute("content", metadata.description);
-    document.querySelector('meta[name="robots"]')?.setAttribute("content", metadata.indexable ? "index, follow" : "noindex, follow");
+    document.querySelector('meta[name="robots"]')?.setAttribute("content", metadata.indexable ? "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" : "noindex, follow");
     document.querySelector('meta[property="og:title"]')?.setAttribute("content", metadata.title);
     document.querySelector('meta[property="og:description"]')?.setAttribute("content", metadata.ogDescription);
 
@@ -60,6 +76,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     const twitterTitleElement = document.querySelector('meta[name="twitter:title"]');
     const twitterDescriptionElement = document.querySelector('meta[name="twitter:description"]');
     const twitterImageElement = document.querySelector('meta[name="twitter:image"]');
+    const twitterUrlElement = document.querySelector('meta[name="twitter:url"]');
     const canonicalBase = new URL(import.meta.env.BASE_URL, window.location.origin);
     const canonicalUrl = new URL(isHomePage ? "" : pathname.replace(/^\/+/, ""), canonicalBase).href;
     let structuredDataElement = document.querySelector<HTMLScriptElement>('script[type="application/ld+json"]');
@@ -84,6 +101,13 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
           telephone: "+33669158671",
           email: company.email,
           identifier: { "@type": "PropertyValue", propertyID: "SIREN", value: company.siren.replace(/\s/g, "") },
+          contactPoint: {
+            "@type": "ContactPoint",
+            contactType: "customer service",
+            telephone: "+33669158671",
+            email: company.email,
+            availableLanguage: ["fr-FR", "en-US"],
+          },
           address: {
             "@type": "PostalAddress",
             streetAddress: company.address.line1,
@@ -96,6 +120,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
             { "@type": "AdministrativeArea", name: "Ardennes" },
           ],
           serviceType: serviceNames,
+          knowsAbout: serviceNames,
           hasOfferCatalog: {
             "@type": "OfferCatalog",
             name: "Prestations de maçonnerie",
@@ -108,6 +133,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
           "@id": `${canonicalBase.href}#website`,
           url: canonicalBase.href,
           name: company.name,
+          description: "Entreprise de maçonnerie générale et gros œuvre basée à Sedan, dans les Ardennes.",
           inLanguage: "fr-FR",
         },
         {
@@ -115,6 +141,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
           "@id": `${canonicalBase.href}#webpage`,
           url: canonicalBase.href,
           name: metadata.title,
+          description: metadata.description,
           isPartOf: { "@id": `${canonicalBase.href}#website` },
           about: { "@id": `${canonicalBase.href}#business` },
           inLanguage: language === "fr" ? "fr-FR" : "en-US",
@@ -127,6 +154,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       ogUrlElement?.setAttribute("content", canonicalUrl);
       twitterTitleElement?.setAttribute("content", metadata.title);
       twitterDescriptionElement?.setAttribute("content", metadata.ogDescription);
+      document.querySelector('meta[name="twitter:url"]')?.setAttribute("content", canonicalUrl);
       const ogImageUrl = new URL("og-image.jpg", canonicalBase).href;
       ogImageElement?.setAttribute("content", ogImageUrl);
       twitterImageElement?.setAttribute("content", ogImageUrl);
@@ -134,6 +162,18 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       if (isHomePage && structuredDataElement) {
         structuredDataElement.textContent = JSON.stringify(homeStructuredData);
       } else if (isLegalPage && structuredDataElement) {
+        structuredDataElement.textContent = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "@id": `${canonicalUrl}#webpage`,
+          url: canonicalUrl,
+          name: metadata.title,
+          description: metadata.description,
+          isPartOf: { "@id": `${canonicalBase.href}#website` },
+          about: { "@id": `${canonicalBase.href}#business` },
+          inLanguage: language === "fr" ? "fr-FR" : "en-US",
+        });
+      } else if ((isPrivacyPage || isTermsPage) && structuredDataElement) {
         structuredDataElement.textContent = JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebPage",
@@ -153,6 +193,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       twitterTitleElement?.remove();
       twitterDescriptionElement?.remove();
       twitterImageElement?.remove();
+      twitterUrlElement?.remove();
       structuredDataElement?.remove();
     }
   }, [language, pathname]);

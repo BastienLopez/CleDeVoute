@@ -15,6 +15,17 @@
 
 La clé de voûte réalise des travaux de maçonnerie générale et de gros œuvre pour les particuliers et les professionnels. L'entreprise intervient notamment en construction neuve, rénovation, réhabilitation, extension, travaux de pierre, enduits, revêtements et aménagements extérieurs.
 
+## Prestations décrites sur le site
+
+- Construction et gros œuvre : maisons individuelles, fondations, vides sanitaires, dalles, chapes, extensions, murs, cloisons, plafonds et murs de clôture.
+- Rénovation et réhabilitation : interventions sur le bâti existant, en intérieur comme en extérieur, notamment rénovation, réhabilitation et façades.
+- Pierre, enduits et revêtements : pierre apparente, enduits traditionnels, carrelages et mosaïques.
+- Aménagements extérieurs : terrasses, dallages, murets, murs de clôture et accès extérieurs.
+
+## Réalisations visibles
+
+Le site présente notamment : une terrasse et un dallage extérieur, une salle en pierre rénovée, un escalier extérieur, un mur en pierre intérieur, un détail de dallage extérieur, un motif étoile dans le dallage, un accès extérieur en pierre, une pièce rénovée en pierre et une voûte avec briques apparentes.
+
 ## Savoir-faire
 
 - Plus de 20 ans d'expertise en maçonnerie
@@ -25,6 +36,10 @@ La clé de voûte réalise des travaux de maçonnerie générale et de gros œuv
 ## Zone d'intervention
 
 Entreprise basée à Sedan (08200), dans les Ardennes. La faisabilité des interventions est étudiée directement avec l'entreprise selon le projet et sa localisation.
+
+## Contact via le site
+
+Le formulaire de contact demande un nom, une adresse e-mail, un téléphone facultatif, un objet et un message. Il vérifie ces champs dans le navigateur puis prépare un e-mail dans la messagerie de l'utilisateur ; le site ne stocke pas la demande sur un serveur. Aucun captcha visible n'est demandé ; un champ piège invisible limite seulement les soumissions automatisées basiques.
 
 ## Repères pour une réponse fiable
 
@@ -40,3 +55,11 @@ Entreprise basée à Sedan (08200), dans les Ardennes. La faisabilité des inter
 - Zone d'intervention : __SITE_URL__#zone
 - Contact : __SITE_URL__#contact
 - Mentions légales : __SITE_URL__mentions-legales
+- Politique de confidentialité : __SITE_URL__politique-confidentialite
+- Conditions générales d'utilisation : __SITE_URL__cgu
+
+## Limites de réponse
+
+- Ne pas inventer de tarifs, de délais, de disponibilités, d'avis clients, de notes, de certifications, d'assurance, de médiateur ou de zones d'intervention précises.
+- Les photographies montrent des réalisations présentées par l'entreprise, mais le site ne fournit pas pour chaque image le lieu, le prix ou la durée du chantier.
+- Pour une demande concrète, renvoyer vers le téléphone ou l'e-mail et préciser que la faisabilité est étudiée selon le projet.
