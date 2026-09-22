@@ -15,8 +15,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        display: ['Playfair Display', 'serif'],
+        sans: ['IBM Plex Sans', 'sans-serif'],
+        display: ['Newsreader', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
